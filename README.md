@@ -22,7 +22,9 @@ OK, here we go.
 
 # Climate niche evolution in C4-CAM Portulaca and closely related C3-CAM lineages
 
-## Background
+## Introduction and Goals
+
+### Background
 
 C4 and CAM are two photosynthetic pathways that have evolved from C3 photosynthesis hundreds of times independently over the last 30 million years. While biochemically similar, they are understood to represent two distinct ecological adaptations. The C4 pathway confers high photosynthetic rates, allowing C4 plants to live in hot temperatures and high light environments, while the CAM pathway confers high water use efficiency and drought tolerance, allowing CAM plants to live in arid regions (Edwards and Ogburn, 2012). There are a number of anatomical and ecological reasons that would lead us to expect CAM and C4 to be mutually exclusive; characteristics favorable to evolving one pathway would seemingly disadvantage the other pathway. However, the purslane lineage (Portulaca) is able to operate both CAM and C4 cycles in a single leaf and is the only plant known to display this unique photosynthetic combination (Ferrari et al. 2019). Portulaca likely had a facultative CAM ancestor that subsequently evolved a C4 cycle at least three separate times while maintaining its CAM capabilities (Guralnick et al. 2008). 
 
@@ -41,7 +43,7 @@ After using ANOVA and phylogenetic PCA to examine climate niche evolution across
   2. Concatenate data for varying genes into a single large matrix with many gaps and infer phylogeny based on this matrix (Landis et al. 2020).
   3. Choose the most taxon-restricted dataset with the best character sampling, infer a constraint tree based on that dataset, restrict Maximum Likelihood search for overall tree to possibilities compatible with the constraint tree (Landis et al. 2020).
 
-## Methods
+### Methods
 
 The tools I used were... See analysis files at (links to analysis files).
 
