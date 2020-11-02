@@ -14,3 +14,14 @@
 **5. Ancestral state reconstruction:** I will calculate species level mean and variance for each environmental variable for all taxa in the phylogeny, and then using the R packages phytools, ape, and ggtree, I will map these climate character states onto the tips of the phylogeny, infer the character states of internal nodes and reconstruct the ancestral states for the base of the Anacampserotaceae clade and the base of the Portulaca clade. I will use a Brownian motion model to perform a PIC reconstruction of the entire tree.
 
 **6. Hypothesis test on posterior distribution:** Finally, I will perform a hypothesis test comparing two means to determine if the difference in environmental variables reconstructed at the ancestral nodes of Anacampserotaceae and Portulaca across the posterior distribution of trees is statistically significant. By examining this difference in means across the posterior distribution of trees, I will be able to assess the sensitivity of my results to different topologies and time calibrations.
+
+### Steps completed for Minimum Viable Analysis
+
+I downloaded 1 gene sequence across all the Portulaca taxa included in the Ocampo & Columbus (2012) phylogeny using NCBI BLAST. I pruned this alignment to only include taxa for which I had climate data, and then I used IQ-TREE to infer a mock phylogeny (Figure 1).
+
+IMAGE HERE
+
+In R, I used the phytools package to map species Mean Annual Temperature character data onto the Portulaca phylogeny based on the methods in Revell (2017) (Figure 2).
+
+IMAGE HERE
+
