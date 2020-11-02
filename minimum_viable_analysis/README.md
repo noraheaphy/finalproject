@@ -23,5 +23,5 @@ I downloaded 1 gene sequence across all the Portulaca taxa included in the Ocamp
 
 In R, I used the phytools package to map species Mean Annual Temperature character data onto the Portulaca phylogeny based on the methods in Revell (2017) (Figure 2).
 
-![Portulaca Phylogeny with Mean Annual Temperature](https://github.com/noraheaphy/finalproject/blob/master/minimum_viable_analysis/port_map_tree_test_11-2-2020.pdf)
+![Portulaca Phylogeny with Mean Annual Temperature](https://github.com/noraheaphy/finalproject/blob/master/minimum_viable_analysis/port_map_tree_test_11-2-2020.jpg)
 
