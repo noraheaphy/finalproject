@@ -35,7 +35,10 @@ I used the R phytools package to map species Mean Annual Temperature character d
 
 ### File directory
 
-character.csv -> mean annual temperature for each Portulaca species in phylogeny
-job_clade_trimmed.sh -> job file to run IQ-TREE on the cluster
-mva_test.R -> R script for mapping character onto phylogeny and creating figures
-portulaca_test_alignment_trimmed.fasta -> aligned sequences for one gene across all Portulaca species in phylogeny
+**character.csv** -> mean annual temperature for each Portulaca species in phylogeny
+
+**job_clade_trimmed.sh** -> job file to run IQ-TREE on the cluster
+
+**mva_test.R** -> R script for mapping character onto phylogeny and creating figures
+
+**portulaca_test_alignment_trimmed.fasta** -> aligned sequences for one gene across all Portulaca species in phylogeny
