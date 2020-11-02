@@ -9,7 +9,7 @@
 
 **3. Phylogenetic inference:** I will use these two data matrices to infer phylogenies for Anacampserotaceae and Portulaca separately via Bayesian MCMC methods in RevBayes. I will estimate edge lengths independently, and then based on the preponderance of evidence that these two groups are sister clades, I will graft the trees together, time calibrate branches accordingly, and test time calibrations by adding jitter into the sensitivity analysis. The support for the tree will be assessed based on the Bayesian posterior probabilities for each node. I will also retain the entire posterior distribution for use in later analyses.
 
-**4. Time calibration:** I will time calibrate the grafted phylogeny in RevBayes using the aligned matrices and a list of extant taxa for which the minimum age has been clamped to 0. I will time calibrate branches based on a relaxed clock model, as described in [Warnock et al. (2019).](https://revbayes.github.io/tutorials/dating/relaxed) 
+**4. Time calibration:** I will time calibrate the grafted phylogeny in RevBayes using the aligned matrices and a list of extant taxa for which the minimum age has been clamped to 0. I will time calibrate branches based on a relaxed clock model, as described in [Warnock et al. (2019)](https://revbayes.github.io/tutorials/dating/relaxed). 
 
 **5. Ancestral state reconstruction:** I will calculate species level mean and variance for each environmental variable for all taxa in the phylogeny, and then using the R packages phytools, ape, and ggtree, I will map these climate character states onto the tips of the phylogeny, infer the character states of internal nodes and reconstruct the ancestral states for the base of the Anacampserotaceae clade and the base of the Portulaca clade. I will use a Brownian motion model to perform a PIC reconstruction of the entire tree.
 
@@ -20,12 +20,10 @@
 I downloaded 1 gene sequence across all the Portulaca taxa included in the [Ocampo & Columbus (2012)](https://www.sciencedirect.com/science/article/pii/S1055790311005306?via%3Dihub) phylogeny using NCBI BLAST. I pruned this alignment to only include taxa for which I had climate data, and then I used IQ-TREE to infer a mock phylogeny (Figure 1).
 
 ![Portulaca Mock Phylogeny](https://github.com/noraheaphy/finalproject/blob/master/minimum_viable_analysis/port_tree_test_11-2-2020.jpeg)
-**Figure 1**
 
 I used the R phytools package to map species Mean Annual Temperature character data onto the Portulaca phylogeny based on the methods in [Revell (2017)](http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html) (Figure 2).
 
 ![Portulaca Phylogeny with Mean Annual Temperature](https://github.com/noraheaphy/finalproject/blob/master/minimum_viable_analysis/port_map_tree_test_11-2-2020.jpg)
-**Figure 2**
 
 ### References
 
@@ -35,3 +33,9 @@ I used the R phytools package to map species Mean Annual Temperature character d
 
 3. Warnock, et al. 2019. Molecular dating: The uncorrelated exponential relaxed clock model. RevBayes tutorial: https://revbayes.github.io/tutorials/dating/relaxed
 
+### File directory
+
+character.csv -> mean annual temperature for each Portulaca species in phylogeny
+job_clade_trimmed.sh -> job file to run IQ-TREE on the cluster
+mva_test.R -> R script for mapping character onto phylogeny and creating figures
+portulaca_test_alignment_trimmed.fasta -> aligned sequences for one gene across all Portulaca species in phylogeny
