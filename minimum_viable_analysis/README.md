@@ -19,7 +19,7 @@
 
 I downloaded 1 gene sequence across all the Portulaca taxa included in the Ocampo & Columbus (2012) phylogeny using NCBI BLAST. I pruned this alignment to only include taxa for which I had climate data, and then I used IQ-TREE to infer a mock phylogeny (Figure 1).
 
-![Portulaca Mock Phylogeny](https://github.com/noraheaphy/finalproject/blob/master/minimum_viable_analysis/port_tree_test_11-2-2020.pdf)
+![Portulaca Mock Phylogeny](https://github.com/noraheaphy/finalproject/blob/master/minimum_viable_analysis/port_tree_test_11-2-2020.jpeg)
 
 In R, I used the phytools package to map species Mean Annual Temperature character data onto the Portulaca phylogeny based on the methods in Revell (2017) (Figure 2).
 
