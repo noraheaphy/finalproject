@@ -1,8 +1,6 @@
 # Phylogenetic Biology - Final Project
 
-# Climate niche evolution in C4-CAM Portulaca and closely related C3-CAM lineages
-
-## Introduction and Goals
+## Climate niche evolution in C4-CAM Portulaca and closely related C3-CAM lineages
 
 ### Background
 
