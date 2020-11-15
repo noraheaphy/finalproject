@@ -28,9 +28,9 @@ library(phylotools)
 
 portulacaTree = read.tree(here("data", "Ocampo_Portulaca.parts.treefile"))
 
+# remove taxonomy info from tip labels
 tip_lab <- data.frame(portulacaTree$tip.label) %>%
-  rename(tiplab = portulacaTree.tip.label) %>%
-  mutate(tiplab_renamed = gsub("-.*","", tiplab)) # remove taxonomy info from tip labels
+  mutate(tip_lab_new = gsub("-.*","", portulacaTree.tip.label)) 
 
 sub.taxa.label(portulacaTree, tip_lab)
 
