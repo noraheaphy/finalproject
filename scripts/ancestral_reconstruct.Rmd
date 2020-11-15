@@ -122,17 +122,55 @@ n_tips = length(portulacaTree$tip.label)
 portulacaTree <- root(portulacaTree, node = 28, edgelabel = TRUE)
 is.rooted(portulacaTree)
 
-# Get the root node by finding the node that is a parent (in column 1 of edge) 
+# get the root node by finding the node that is a parent (in column 1 of edge) 
 # but not a child (in column 2 of edge)
 # root_node = portulacaTree$edge[(!portulacaTree$edge[,1] %in% portulacaTree$edge[,2]),1] %>%
 #  unique()
-root node = 28 # temporarily assigning manually because I can't get it to work the other way
+root_node = 28 # temporarily assigning manually because I can't get it to work the other way
 
-root_age = max( dist.nodes(geoTree)[,root_node] )
+# get the maximum distance from the root to another node, which will be for a tip.
+# since this tree happens to be ultrametric, this will be the root age
+root_age = max(dist.nodes(portulacaTree)[, root_node])
 
-# Get the maximum distance from the root to another node, which will be for a tip.
-# Since this tree happens to be ultrametric, this will be the root age
-root_age = max( dist.nodes(geoTree)[,root_node] )
+# this isn't necessary, but since we don't know the units of edge length let's rescale
+# the tree so that the age of the root is 1.
+# this could be a place to add noise into edge lengths to see how robust the analysis is
+portulacaTree$edge.length = portulacaTree$edge.length/root_age
+    
+# and now recalculate the root age to make sure things look good
+root_age = max(dist.nodes(portulacaTree)[, root_node])
+    
+```
+
+```{r}
+
+# scale and graph tree
+
+label_offset = 0.02 * root_age
+tree_width = 1.5 * root_age
+
+portulaca_ggtree = ggtree(portulacaTree) + 
+  geom_tiplab(fontface = "italic", offset = label_offset) +
+  xlim(0, tree_width) +
+  geom_text2(aes(label = node), col = "red", nudge_x = label_offset/2, size = 2)
+
+portulaca_ggtree
+
+```
+
+## Plot character data onto tips
+
+```{r}
+
+# to display the node values, ggtree expects a vector where each element
+# corresponds to each node in the tree, both at the tips and at the internal 
+# nodes. Since we don't have values for the internal nodes, we will pad them 
+# with NA (Not Available) for now.
+node_values = c(portulacaData, rep(NA, n_tips-1))
+
+portulaca_ggtree + 
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1)
+
 
 ```
 
