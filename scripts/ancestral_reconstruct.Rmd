@@ -70,6 +70,24 @@ names_to_drop <- names_to_drop$names # make into a vector
 
 portulacaData <- portulacaData[!(portulacaData$species %in% names_to_drop),] 
 
+### temporary! fix later!
+# remove P. halimoides and P. pusilla from both tree and character data
+portulacaTree <- drop.tip(portulacaTree, c("Portulaca halimoides", "Portulaca pusilla"))
+portulacaData <- portulacaData %>% filter(species != "Portulaca halimoides" &
+                                            species != "Portulaca pusilla")
+
+# last check
+species_tree <- data.frame(portulacaTree$tip.label) %>%
+  rename(names = portulacaTree.tip.label)
+species_character <- data.frame(portulacaData$species) %>%
+  rename(names = portulacaData.species)
+
+if(! nrow(species_tree) == nrow(species_character)) {
+      stop("Error: different numbers of taxa in tip labels and character data!")
+} else {
+  print("All good, continue!")
+}
+
 ```
 
 Question for Casey & Lauren: How should I deal with a handful of taxa showing up as non-monophyletic? P. pusilla and P. halimoides show up in completely different parts of the tree. P. quadrifida and P. amilis are (not really) monophyletic once I drop tips I don't have character data for, so they just need to be combined into a single tip.
@@ -79,6 +97,42 @@ Question for Casey & Lauren: How should I deal with a handful of taxa showing up
 # plot tree
 
 plot(portulacaTree)
+
+```
+
+```{r}
+
+# turn first column of character data into row names and clip to only MAT for now
+portulacaData <- portulacaData %>% remove_rownames %>% 
+  column_to_rownames(var = "species") %>% 
+  select(MAT)
+
+# ensure character data and tiplabels are in same order
+portulacaData <- portulacaData[match(row.names(portulacaData), portulacaTree$tip.label), ]
+    
+# double check that labels are the same, in case some were missing or duplicated
+if(!all(row.names(portulacaData) == portulacaTree$tip.label ) ){
+      stop("Error: tip labels and dataframe rows not in same order!")
+}
+
+# count the number of tips
+n_tips = length(portulacaTree$tip.label)
+
+# root tree manually based on Ocampo & Columbus
+portulacaTree <- root(portulacaTree, node = 28, edgelabel = TRUE)
+is.rooted(portulacaTree)
+
+# Get the root node by finding the node that is a parent (in column 1 of edge) 
+# but not a child (in column 2 of edge)
+# root_node = portulacaTree$edge[(!portulacaTree$edge[,1] %in% portulacaTree$edge[,2]),1] %>%
+#  unique()
+root node = 28 # temporarily assigning manually because I can't get it to work the other way
+
+root_age = max( dist.nodes(geoTree)[,root_node] )
+
+# Get the maximum distance from the root to another node, which will be for a tip.
+# Since this tree happens to be ultrametric, this will be the root age
+root_age = max( dist.nodes(geoTree)[,root_node] )
 
 ```
 
