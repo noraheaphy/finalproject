@@ -88,6 +88,9 @@ if(! nrow(species_tree) == nrow(species_character)) {
   print("All good, continue!")
 }
 
+# save this cleaned character data
+write.csv(portulacaData, "portulaca_means_mapping.csv", row.names = FALSE)
+
 ```
 
 Question for Casey & Lauren: How should I deal with a handful of taxa showing up as non-monophyletic? P. pusilla and P. halimoides show up in completely different parts of the tree. P. quadrifida and P. amilis are (not really) monophyletic once I drop tips I don't have character data for, so they just need to be combined into a single tip.
@@ -242,3 +245,24 @@ portulaca_ggtree +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 )
 
 ```
+
+## Mapping character states using a different method from http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html 
+
+```{r}
+
+# read in character data again
+portulacaData <- read.csv(here("scripts", "portulaca_means_mapping.csv"), header = TRUE, 
+                          row.names = 1)
+
+portulacaData <- portulacaData %>% select(MAT)
+
+portulacaData <- setNames(portulacaData[,1], rownames(portulacaData))
+
+obj <- contMap(portulacaTree, portulacaData, plot = FALSE)
+obj <- setMap(obj, invert = TRUE)
+plot(obj, fsize = c(0.5, 0.75), outline = FALSE, lwd = c(3, 7), 
+     leg.txt = "Mean annual temperature (C)")
+
+```
+
+
