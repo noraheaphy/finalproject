@@ -1,0 +1,8 @@
+"0","tip_lab <- data.frame(portulacaTree$tip.label) %>%
+  mutate(tip_lab_new = gsub(""-.*"","""", portulacaTree.tip.label)) %>%
+  gsub(""_"", "" "", tip_lab$tip_lab_new)
+"
+"2","argument 'pattern' has length > 1 and only the first element will be used"
+"2","Error in gsub(., ""_"", "" "", tip_lab$tip_lab_new) : 
+  assertion 'tree->num_tags == num_tags' failed in executing regexp: file '../../../../../R-4.0.2/src/extra/tre/tre-compile.c', line 634
+"
