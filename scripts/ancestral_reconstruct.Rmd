@@ -102,16 +102,16 @@ plot(portulacaTree)
 
 ```{r}
 
-# turn first column of character data into row names and clip to only MAT for now
+# turn first column of character data into row names
 portulacaData <- portulacaData %>% remove_rownames %>% 
-  column_to_rownames(var = "species") %>% 
+  column_to_rownames(var = "species") %>%
   select(MAT)
 
 # ensure character data and tiplabels are in same order
 portulacaData <- portulacaData[match(row.names(portulacaData), portulacaTree$tip.label), ]
     
 # double check that labels are the same, in case some were missing or duplicated
-if(!all(row.names(portulacaData) == portulacaTree$tip.label ) ){
+if(!all(row.names(portulacaData) == portulacaTree$tip.label)){
       stop("Error: tip labels and dataframe rows not in same order!")
 }
 
@@ -174,3 +174,18 @@ portulaca_ggtree +
 
 ```
 
+## Ancestral character state estimation
+
+```{r}
+
+mat_ancestral = 
+  ace(portulacaData, 
+    portulacaTree, 
+    type = "continuous", 
+    method = "REML", 
+    model = "BM"  
+  )
+
+mat_ancestral
+
+```
