@@ -10,7 +10,7 @@ For this project, I will investigate how evolving C4-CAM photosynthesis affected
 
 The evolutionary relationships between and within Portulaca and related clades are not well established. However, a phylogenetic perspective is critical to understanding the ecological implications of evolving C4-CAM photosynthesis as well as, more broadly, how do selection forces and genetic or biophysical constraints enable global convergent evolution of highly complex traits. Portulaca’s unique C4-CAM photosynthesis contradicts previous hypotheses that ecological and functional selection factors drive the evolution of CAM and C4 along predominantly separate trajectories, as does the presence of both CAM species and C4 species in many major clades. A more complete understanding of Portulaca as a model system for studying the evolution and ecological implications of CAM and C4 would further our knowledge of how organisms can evolve complex traits convergently and could eventually allow researchers to bioengineer both photosynthetic syndromes into a single crop, conferring drought tolerance and high productivity simultaneously and enabling agriculture in regions whose food security is threatened by climate change.
 
-![Portullugo Phylogeny](https://github.com/noraheaphy/finalproject/blob/master/portullugo_phylo_10-06-2020.jpeg)
+![Portullugo Phylogeny](https://github.com/noraheaphy/finalproject/blob/master/figures/portullugo_phylo_10-06-2020.jpeg)
 
 ### Methods
 
