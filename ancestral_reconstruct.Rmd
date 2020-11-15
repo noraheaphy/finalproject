@@ -14,7 +14,8 @@ library(phytools)
 library(tidyverse)
 library(ggplot2)
 library(here)
-library(phylotools)
+
+setwd(here())
 
 ```
 
@@ -25,22 +26,12 @@ library(phylotools)
 ```{r}
 
 # read in tree file
-
-portulacaTree = read.tree(here("data", "Ocampo_Portulaca.parts.treefile"))
+portulacaTree = read.tree("Ocampo_Portulaca.parts.treefile")
 
 tip_lab <- data.frame(portulacaTree$tip.label) %>%
   rename(tiplab = portulacaTree.tip.label) %>%
-  mutate(tiplab_renamed = gsub("-.*","", tiplab)) # remove taxonomy info from tip labels
+  mutate(tiplab_renamed = gsub(, tiplab))
 
-sub.taxa.label(portulacaTree, tip_lab)
 
-```
-
-```{r fig.width=9, fig.height=18}
-
-# plot tree
-
-plot(portulacaTree)
 
 ```
-
