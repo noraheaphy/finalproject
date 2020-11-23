@@ -55,7 +55,7 @@ names_to_drop <- names_to_drop$names # make into a vector
 
 # remove tips that don't have character data matches
 portulacaTree <- drop.tip(portulacaTree, names_to_drop)
-portulacaTree <- drop.tip(portulacaTree, c(9, 4)) # pseudo-monophyletic duplicates
+portulacaTree <- drop.tip(portulacaTree, c(9, 4)) # monophyletic duplicates
 
 # now remove rows from character data frame that don't correspond to tips
 species_tree <- data.frame(portulacaTree$tip.label) %>%
@@ -66,8 +66,8 @@ names_to_drop <- names_to_drop$names # make into a vector
 
 portulacaData <- portulacaData[!(portulacaData$species %in% names_to_drop),] 
 
-### temporary! fix later!
-# remove P. halimoides and P. pusilla from both tree and character data
+# remove P. halimoides and P. pusilla from both tree and character data, because
+# they're resolving as non-monophyletic in the Ocampo & Columbus phylogeny
 portulacaTree <- drop.tip(portulacaTree, c("Portulaca halimoides", "Portulaca pusilla"))
 portulacaData <- portulacaData %>% filter(species != "Portulaca halimoides" &
                                             species != "Portulaca pusilla")
@@ -86,7 +86,6 @@ write.csv(portulacaData, "portulaca_means_mapping.csv", row.names = FALSE)
 
 ```
 
-Question for Casey & Lauren: How should I deal with a handful of taxa showing up as non-monophyletic? P. pusilla and P. halimoides show up in completely different parts of the tree. P. quadrifida and P. amilis are (not really) monophyletic once I drop tips I don't have character data for, so they just need to be combined into a single tip.
 
 ```{r fig.width=9, fig.height=18}
 
@@ -107,6 +106,8 @@ portulacaData <- portulacaData[match(portulacaTree$tip.label,row.names(portulaca
 # double check that labels are the same, in case some were missing or duplicated
 if(!all(row.names(portulacaData) == portulacaTree$tip.label)){
       stop("Error: tip labels and dataframe rows not in same order!")
+} else {
+  print("Labels are in the right order, go ahead!")
 }
 
 # count the number of tips
@@ -114,7 +115,11 @@ n_tips = length(portulacaTree$tip.label)
 
 # root tree manually based on Ocampo & Columbus
 portulacaTree <- root(portulacaTree, node = 28, edgelabel = TRUE)
-is.rooted(portulacaTree)
+if(is.rooted(portulacaTree) == FALSE) {
+  stop("Error: tree is not rooted.")
+} else {
+  print("Tree is rooted, continue!")
+}
 
 # get the root node by finding the node that is a parent (in column 1 of edge) 
 # but not a child (in column 2 of edge)
@@ -172,6 +177,9 @@ portulaca_ggtree +
 
 ```{r}
 
+# fix the edge length of 0 by setting it to a very tiny number
+portulacaTree$edge.length[portulacaTree$edge.length==0] = 1e-6
+
 mat_ancestral = 
   ace(portulacaData$MAT, 
     portulacaTree, 
@@ -181,8 +189,6 @@ mat_ancestral =
   )
 
 mat_ancestral
-
-#### currently generating a big ole error
 
 ```
 
@@ -195,7 +201,8 @@ mat_ancestral
 # corresponds to each node in the tree, both at the tips and at the internal 
 # nodes. Since we don't have values for the internal nodes, we will pad them 
 # with NA (Not Available) for now.
-node_values = c(portulacaData, mat_ancestral$ace )
+
+node_values = c(portulacaData[22], mat_ancestral$ace)
 
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
