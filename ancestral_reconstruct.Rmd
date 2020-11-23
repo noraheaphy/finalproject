@@ -202,7 +202,7 @@ mat_ancestral
 # nodes. Since we don't have values for the internal nodes, we will pad them 
 # with NA (Not Available) for now.
 
-node_values = c(portulacaData[22], mat_ancestral$ace)
+node_values = c(portulacaData[,22], mat_ancestral$ace)
 
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
@@ -215,7 +215,7 @@ portulaca_ggtree +
 ```{r}
 
 mat_ancestral_pic = 
-  ace(portulacaData, 
+  ace(portulacaData$MAT, 
     portulacaTree, 
     type="continuous", 
     method="pic", 
@@ -236,7 +236,7 @@ mat_ancestral_pic
 # corresponds to each node in the tree, both at the tips and at the internal 
 # nodes. Since we don't have values for the internal nodes, we will pad them 
 # with NA (Not Available) for now.
-node_values = c(portulacaData, mat_ancestral_pic$ace )
+node_values = c(portulacaData[,22], mat_ancestral_pic$ace )
 
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
@@ -249,8 +249,7 @@ portulaca_ggtree +
 ```{r}
 
 # read in character data again
-portulacaData <- read.csv(here("scripts", "portulaca_means_mapping.csv"), header = TRUE, 
-                          row.names = 1)
+portulacaData <- read.csv("data/portulaca_means_mapping.csv", header = TRUE, row.names = 1)
 
 portulacaData <- portulacaData %>% select(MAT)
 
