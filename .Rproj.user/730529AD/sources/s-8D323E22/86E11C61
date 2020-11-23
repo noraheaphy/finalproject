@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1606167443347.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1089663092",
+    "id" : "86E11C61",
+    "lastKnownWriteTime" : 1605537488,
+    "last_content_update" : 1605537488,
+    "path" : "~/Desktop/Files/Yale/research/phylobio_finalproject/ancestral_reconstruct.Rmd",
+    "project_path" : "ancestral_reconstruct.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -1,0 +1,5 @@
+"0","# save this cleaned character data
+write.csv(portulacaData, ""data"", ""portulaca_means_mapping.csv"", row.names = TRUE)
+"
+"2","Error in file(file, ifelse(append, ""a"", ""w"")) : invalid 'open' argument
+"

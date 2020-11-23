@@ -31,19 +31,15 @@ library(phylotools)
 ```{r}
 
 # read in tree file
-portulacaTree <- read.tree(here("data", "Ocampo_Portulaca.parts.treefile"))
+portulacaTree <- read.tree("data/Ocampo_Portulaca.parts.treefile")
 
 # read in character data
-portulacaData <- read.csv(here("data", "portulaca_means_11-06-2020.csv"), header = TRUE, 
+portulacaData <- read.csv("data/portulaca_means_11-06-2020.csv", header = TRUE, 
                           sep = ",", na.strings = "")
 
-# remove taxonomy info from tip labels
-tip_lab <- data.frame(portulacaTree$tip.label) %>%
-  mutate(tip_lab_new = gsub("-.*","", portulacaTree.tip.label)) %>%
-  mutate(tip_lab_final = gsub("_", " ", tip_lab_new)) %>%
-  select(portulacaTree.tip.label, tip_lab_final)
-
-portulacaTree <- sub.taxa.label(portulacaTree, tip_lab)
+portulacaTree$tip.label = portulacaTree$tip.label %>%
+  str_replace("-.*","") %>%
+  str_replace("_", " ")
 
 # make dataframe of species names from character data
 species_character <- data.frame(portulacaData$species) %>%
@@ -77,12 +73,9 @@ portulacaData <- portulacaData %>% filter(species != "Portulaca halimoides" &
                                             species != "Portulaca pusilla")
 
 # last check
-species_tree <- data.frame(portulacaTree$tip.label) %>%
-  rename(names = portulacaTree.tip.label)
-species_character <- data.frame(portulacaData$species) %>%
-  rename(names = portulacaData.species)
 
-if(! nrow(species_tree) == nrow(species_character)) {
+
+if(! length(portulacaTree$tip.label) == nrow(portulacaData)) {
       stop("Error: different numbers of taxa in tip labels and character data!")
 } else {
   print("All good, continue!")
@@ -106,12 +99,10 @@ plot(portulacaTree)
 ```{r}
 
 # turn first column of character data into row names
-portulacaData <- portulacaData %>% remove_rownames %>% 
-  column_to_rownames(var = "species") %>%
-  select(MAT)
+row.names(portulacaData) = portulacaData$species
 
 # ensure character data and tiplabels are in same order
-portulacaData <- portulacaData[match(row.names(portulacaData), portulacaTree$tip.label), ]
+portulacaData <- portulacaData[match(portulacaTree$tip.label,row.names(portulacaData)), ]
     
 # double check that labels are the same, in case some were missing or duplicated
 if(!all(row.names(portulacaData) == portulacaTree$tip.label)){
@@ -169,7 +160,7 @@ portulaca_ggtree
 # corresponds to each node in the tree, both at the tips and at the internal 
 # nodes. Since we don't have values for the internal nodes, we will pad them 
 # with NA (Not Available) for now.
-node_values = c(portulacaData, rep(NA, n_tips-1))
+node_values = c(portulacaData$MAT, rep(NA, n_tips-1))
 
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1)
@@ -182,7 +173,7 @@ portulaca_ggtree +
 ```{r}
 
 mat_ancestral = 
-  ace(portulacaData, 
+  ace(portulacaData$MAT, 
     portulacaTree, 
     type = "continuous", 
     method = "REML", 

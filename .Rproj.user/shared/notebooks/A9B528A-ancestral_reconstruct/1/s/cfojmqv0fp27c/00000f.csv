@@ -1,0 +1,8 @@
+"0","# scale and graph tree"
+"0","label_offset = 0.02 * root_age"
+"0","tree_width = 1.5 * root_age"
+"0","portulaca_ggtree = ggtree(portulacaTree) + "
+"0","  geom_tiplab(fontface = ""italic"", offset = label_offset) +"
+"0","  xlim(0, tree_width) +"
+"0","  geom_text2(aes(label = node), col = ""red"", nudge_x = label_offset/2, size = 2)"
+"0","portulaca_ggtree"
