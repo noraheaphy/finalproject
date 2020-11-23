@@ -13,7 +13,6 @@ library(ggtree)
 library(phytools)
 library(tidyverse)
 library(ggplot2)
-library(here)
 library(phylotools)
 
 ```
@@ -167,9 +166,12 @@ portulaca_ggtree
 # with NA (Not Available) for now.
 node_values = c(portulacaData$MAT, rep(NA, n_tips-1))
 
-portulaca_ggtree + 
-  geom_tippoint(aes(color = node_values), size = 3, alpha = 1)
+# read in color palette
+mycol  <- read.csv("data/color_palette.csv", header = TRUE, sep = ",", na.strings = "")
 
+portulaca_ggtree + 
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x)
 
 ```
 
@@ -259,6 +261,8 @@ obj <- contMap(portulacaTree, portulacaData, plot = FALSE)
 obj <- setMap(obj, invert = TRUE)
 plot(obj, fsize = c(0.5, 0.75), outline = FALSE, lwd = c(3, 7), 
      leg.txt = "Mean annual temperature (C)")
+
+write.csv(obj$cols, "data/color_palette.csv", row.names = FALSE)
 
 ```
 
