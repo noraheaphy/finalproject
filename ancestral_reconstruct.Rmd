@@ -82,7 +82,7 @@ if(! length(portulacaTree$tip.label) == nrow(portulacaData)) {
 }
 
 # save this cleaned character data
-write.csv(portulacaData, "portulaca_means_mapping.csv", row.names = FALSE)
+write.csv(portulacaData, "data/portulaca_means_mapping.csv", row.names = FALSE)
 
 ```
 
