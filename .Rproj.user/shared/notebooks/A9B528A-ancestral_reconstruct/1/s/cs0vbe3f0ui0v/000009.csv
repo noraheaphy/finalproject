@@ -1,7 +1,0 @@
-"0","# to display the node values, ggtree expects a vector where each element"
-"0","# corresponds to each node in the tree, both at the tips and at the internal "
-"0","# nodes. Since we don't have values for the internal nodes, we will pad them "
-"0","# with NA (Not Available) for now."
-"0","node_values = c(portulacaData, rep(NA, n_tips-1))"
-"0","portulaca_ggtree + "
-"0","  geom_tippoint(aes(color = node_values), size = 3, alpha = 1)"
