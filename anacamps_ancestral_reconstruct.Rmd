@@ -1,0 +1,87 @@
+---
+title: "Anacamps Ancestral Reconstruction"
+author: "Nora Heaphy"
+date: "11/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ape)
+library(ggtree)
+library(phytools)
+library(tidyverse)
+library(ggplot2)
+library(phylotools)
+library(knitr)
+
+```
+
+## Data cleaning
+
+- First to get all the taxa names in the character data matrix and the phylogeny tip labels into the format *Genus_species*
+
+- Then drop the tips from the tree that don't have an equivalent in the character data (which is many of them) with `drop.tip`
+
+- Then remove the character data rows that don't have an equivalent in the tree with `dplyr`
+
+- Then use this line from exercise 10 to get the character data rows into the right order to map onto the tips: `geoData = geoData[ match( row.names(geoData), geoTree$tip.label  ), ]`
+
+```{r}
+
+# read in tree file
+anacampsTree <- read.tree("data/anacamps.treefile")
+
+# read in character data
+anacampsData <- read.csv("data/portulaca_means_11-06-2020.csv", header = TRUE, 
+                          sep = ",", na.strings = "")
+
+portulacaTree$tip.label = portulacaTree$tip.label %>%
+  str_replace("-.*","") %>%
+  str_replace("_", " ")
+
+# make dataframe of species names from character data
+species_character <- data.frame(portulacaData$species) %>%
+  rename(names = portulacaData.species)
+
+# make dataframe of species names from tip labels
+species_tree <- data.frame(portulacaTree$tip.label) %>%
+  rename(names = portulacaTree.tip.label)
+
+# pull out the names in the tree but not the character data
+names_to_drop <- setdiff(species_tree, species_character)
+names_to_drop <- names_to_drop$names # make into a vector
+
+# remove tips that don't have character data matches
+portulacaTree <- drop.tip(portulacaTree, names_to_drop)
+portulacaTree <- drop.tip(portulacaTree, c(9, 4)) # monophyletic duplicates
+
+# now remove rows from character data frame that don't correspond to tips
+species_tree <- data.frame(portulacaTree$tip.label) %>%
+  rename(names = portulacaTree.tip.label)
+
+names_to_drop <- setdiff(species_character, species_tree)
+names_to_drop <- names_to_drop$names # make into a vector
+
+portulacaData <- portulacaData[!(portulacaData$species %in% names_to_drop),] 
+
+# remove P. halimoides and P. pusilla from both tree and character data, because
+# they're resolving as non-monophyletic in the Ocampo & Columbus phylogeny
+portulacaTree <- drop.tip(portulacaTree, c("Portulaca halimoides", "Portulaca pusilla"))
+portulacaData <- portulacaData %>% filter(species != "Portulaca halimoides" &
+                                            species != "Portulaca pusilla")
+
+# last check
+
+
+if(! length(portulacaTree$tip.label) == nrow(portulacaData)) {
+      stop("Error: different numbers of taxa in tip labels and character data!")
+} else {
+  print("All good, continue!")
+}
+
+# save this cleaned character data
+write.csv(portulacaData, "data/portulaca_means_mapping.csv", row.names = FALSE)
+
+```
