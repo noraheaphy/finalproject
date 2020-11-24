@@ -14,6 +14,7 @@ library(phytools)
 library(tidyverse)
 library(ggplot2)
 library(phylotools)
+library(knitr)
 
 ```
 
@@ -208,7 +209,8 @@ node_values = c(portulacaData[,22], mat_ancestral$ace)
 
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 )
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x)
 
 ```
 
@@ -242,11 +244,75 @@ node_values = c(portulacaData[,22], mat_ancestral_pic$ace )
 
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 )
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x)
 
 ```
 
-## Mapping character states using a different method from http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html 
+## Compare REML and PIC methods
+
+```{r}
+
+D_methods = data.frame(
+  reml = mat_ancestral$ace,
+  pic = mat_ancestral_pic$ace
+)
+
+# Add node numbers to the data frame
+D_methods$node = seq(1:nrow(D_methods)) + n_tips
+
+D_methods %>%
+  ggplot(aes(x = reml,y = pic)) +
+  geom_point() +
+  geom_text(aes(label = node), color = "red", vjust = 0, nudge_y = 0.005) +
+  geom_abline(slope = 1, intercept = 0, color = "blue")
+
+# Add confidence intervals to dataframe
+D_methods$CI_reml_lower <- mat_ancestral$CI95[,1]
+D_methods$CI_reml_upper <- mat_ancestral$CI95[,2]
+D_methods$CI_pic_lower <- mat_ancestral_pic$CI95[,1]
+D_methods$CI_pic_upper <- mat_ancestral_pic$CI95[,2]
+
+# print in table
+kable(D_methods)
+
+```
+
+
+## Confidence and node age
+
+The code below explores the width of the confidence intervals for each reconstruction.
+
+```{r}
+
+# for REML
+interval_width = mat_ancestral$CI95[,2] - mat_ancestral$CI95[,1]
+node_values = c(rep(NA, nrow(portulacaData)), interval_width)
+
+portulaca_ggtree + 
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x)
+
+# for PIC
+interval_width = mat_ancestral_pic$CI95[,2] - mat_ancestral_pic$CI95[,1]
+node_values = c(rep(NA, nrow(portulacaData)), interval_width)
+
+portulaca_ggtree + 
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x)
+
+# for the difference between the two reconstruction methods
+interval_width = mat_ancestral_pic$ace - mat_ancestral$ace
+node_values = c(rep(NA, nrow(portulacaData)), interval_width)
+
+portulaca_ggtree + 
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x)
+
+```
+
+## Mapping character states using a different method
+http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html 
 
 ```{r}
 
