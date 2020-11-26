@@ -112,19 +112,17 @@ if(!all(row.names(anacampsData) == anacampsTree$tip.label)){
 # count the number of tips
 n_tips = length(anacampsTree$tip.label)
 
-# root tree manually based on Moore et al 2018
-anacampsTree <- root(anacampsTree, node = 28, edgelabel = TRUE)
+# get the root node by finding the node that is a parent (in column 1 of edge) 
+# but not a child (in column 2 of edge)
+root_node = anacampsTree$edge[(!anacampsTree$edge[,1] %in% anacampsTree$edge[,2]),1] %>%
+    unique()
+
+# verify that tree is rooted
 if(is.rooted(anacampsTree) == FALSE) {
   stop("Error: tree is not rooted.")
 } else {
   print("Tree is rooted, continue!")
 }
-
-# get the root node by finding the node that is a parent (in column 1 of edge) 
-# but not a child (in column 2 of edge)
-# root_node = anacampsTree$edge[(!anacampsTree$edge[,1] %in% anacampsTree$edge[,2]),1] %>%
-#  unique()
-root_node = 28 # temporarily assigning manually because I can't get it to work the other way
 
 # get the maximum distance from the root to another node, which will be for a tip.
 # since this tree happens to be ultrametric, this will be the root age
@@ -139,3 +137,195 @@ anacampsTree$edge.length = anacampsTree$edge.length/root_age
 root_age = max(dist.nodes(anacampsTree)[, root_node])
     
 ```
+
+```{r}
+
+# scale and graph tree
+
+label_offset = 0.02 * root_age
+tree_width = 1.5 * root_age
+
+anacamps_ggtree = ggtree(anacampsTree) + 
+  geom_tiplab(fontface = "italic", offset = label_offset) +
+  xlim(0, tree_width) +
+  geom_text2(aes(label = node), col = "red", nudge_x = label_offset/2, size = 2)
+
+anacamps_ggtree
+
+```
+
+## Plot character data onto tips
+
+```{r}
+
+# to display the node values, ggtree expects a vector where each element
+# corresponds to each node in the tree, both at the tips and at the internal 
+# nodes. Since we don't have values for the internal nodes, we will pad them 
+# with NA (Not Available) for now.
+node_values = c(anacampsData$MAT, rep(NA, n_tips-1))
+
+# read in color palette
+mycol  <- read.csv("data/color_palette.csv", header = TRUE, sep = ",", na.strings = "")
+
+anacamps_ggtree + 
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x)
+
+```
+
+
+## Ancestral character state estimation using Reduced Maximum Likelihood
+
+```{r}
+
+mat_ancestral = 
+  ace(anacampsData$MAT, 
+    anacampsTree, 
+    type = "continuous", 
+    method = "REML", 
+    model = "BM"  
+  )
+
+mat_ancestral
+
+```
+
+
+
+## Plot reconstructed states on phylogeny
+
+```{r}
+
+# To display the node values, ggtree expects a vector where each element
+# corresponds to each node in the tree, both at the tips and at the internal 
+# nodes. Since we don't have values for the internal nodes, we will pad them 
+# with NA (Not Available) for now.
+
+node_values = c(anacampsData[,21], mat_ancestral$ace)
+
+anacamps_ggtree + 
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x)
+
+```
+
+## Ancestral character state estimation using Phylogenetic Independent Contrasts
+
+```{r}
+
+mat_ancestral_pic = 
+  ace(anacampsData$MAT, 
+    anacampsTree, 
+    type="continuous", 
+    method="pic", 
+    model="BM"  
+  )
+
+mat_ancestral_pic
+
+```
+
+
+## Plot reconstructed states on phylogeny
+
+```{r}
+
+# To display the node values, ggtree expects a vector where each element
+# corresponds to each node in the tree, both at the tips and at the internal 
+# nodes. Since we don't have values for the internal nodes, we will pad them 
+# with NA (Not Available) for now.
+node_values = c(anacampsData[,21], mat_ancestral_pic$ace )
+
+anacamps_ggtree + 
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x)
+
+```
+
+## Compare REML and PIC methods
+
+```{r}
+
+D_methods = data.frame(
+  reml = mat_ancestral$ace,
+  pic = mat_ancestral_pic$ace
+)
+
+# Add node numbers to the data frame
+D_methods$node = seq(1:nrow(D_methods)) + n_tips
+
+D_methods %>%
+  ggplot(aes(x = reml,y = pic)) +
+  geom_point() +
+  geom_text(aes(label = node), color = "red", vjust = 0, nudge_y = 0.005) +
+  geom_abline(slope = 1, intercept = 0, color = "blue")
+
+# Add confidence intervals to dataframe
+D_methods$CI_reml_lower <- mat_ancestral$CI95[,1]
+D_methods$CI_reml_upper <- mat_ancestral$CI95[,2]
+D_methods$CI_pic_lower <- mat_ancestral_pic$CI95[,1]
+D_methods$CI_pic_upper <- mat_ancestral_pic$CI95[,2]
+
+# print in table
+kable(D_methods)
+
+```
+
+
+## Confidence and node age
+
+The code below explores the width of the confidence intervals for each reconstruction.
+
+```{r}
+
+# for REML
+interval_width = mat_ancestral$CI95[,2] - mat_ancestral$CI95[,1]
+node_values = c(rep(NA, nrow(anacampsData)), interval_width)
+
+anacamps_ggtree + 
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x)
+
+# for PIC
+interval_width = mat_ancestral_pic$CI95[,2] - mat_ancestral_pic$CI95[,1]
+node_values = c(rep(NA, nrow(anacampsData)), interval_width)
+
+anacamps_ggtree + 
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x)
+
+# for the difference between the two reconstruction methods
+interval_width = mat_ancestral_pic$ace - mat_ancestral$ace
+node_values = c(rep(NA, nrow(anacampsData)), interval_width)
+
+anacamps_ggtree + 
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x)
+
+```
+
+
+## Mapping character states using a different method
+http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html 
+
+```{r}
+
+# read in character data again
+anacampsData <- read.csv("data/anacamps_means_mapping.csv", header = TRUE, row.names = 1)
+
+anacampsData <- anacampsData %>% select(MAT)
+
+anacampsData <- setNames(anacampsData[,1], rownames(anacampsData))
+
+obj <- contMap(anacampsTree, anacampsData, plot = FALSE)
+obj <- setMap(obj, invert = TRUE)
+plot(obj, fsize = c(0.5, 0.75), outline = FALSE, lwd = c(3, 7), 
+     leg.txt = "Mean annual temperature (C)")
+
+write.csv(obj$cols, "data/color_palette.csv", row.names = FALSE)
+
+```
+
+
