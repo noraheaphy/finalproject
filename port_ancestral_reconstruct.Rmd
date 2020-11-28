@@ -210,7 +210,7 @@ node_values = c(portulacaData[,22], mat_ancestral$ace)
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  scale_color_gradientn(colors = mycol$x)
+  scale_color_gradientn(colors = mycol$x, limits = c(9, 27))
 
 ```
 
@@ -245,7 +245,7 @@ node_values = c(portulacaData[,22], mat_ancestral_pic$ace )
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  scale_color_gradientn(colors = mycol$x)
+  scale_color_gradientn(colors = mycol$x, limits = c(9, 27))
 
 ```
 
