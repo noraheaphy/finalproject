@@ -96,7 +96,9 @@ write.csv(portulacaData, "data/portulaca_means_mapping.csv", row.names = FALSE)
 
 # plot tree
 
-plot(portulacaTree)
+ggtree(portulacaTree) + 
+  geom_tiplab(fontface = "italic") +
+  geom_text2(aes(label = node), col = "red", size = 6)
 
 ```
 
@@ -120,8 +122,9 @@ n_tips = length(portulacaTree$tip.label)
 
 # root tree manually based on Ocampo & Columbus
 portulacaTree <- root(portulacaTree, node = getMRCA(portulacaTree, 
-                                                    c("Portulaca digyna", "Portulaca obtusa")), 
+                      c("Portulaca wightiana", "Portulaca amilis")), 
                       edgelabel = TRUE)
+
 if(is.rooted(portulacaTree) == FALSE) {
   stop("Error: tree is not rooted.")
 } else {
@@ -132,7 +135,8 @@ if(is.rooted(portulacaTree) == FALSE) {
 # but not a child (in column 2 of edge)
 # root_node = portulacaTree$edge[(!portulacaTree$edge[,1] %in% portulacaTree$edge[,2]),1] %>%
 #  unique()
-root_node = getMRCA(portulacaTree, c("Portulaca digyna", "Portulaca obtusa"))
+root_node = getMRCA(portulacaTree, 
+                    c("Portulaca wightiana", "Portulaca amilis"))
 
 # get the maximum distance from the root to another node, which will be for a tip.
 # since this tree happens to be ultrametric, this will be the root age
