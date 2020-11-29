@@ -159,8 +159,7 @@ portulaca_ggtree
 
 portulaca_ggtree_fig = ggtree(portulacaTree) + 
   geom_tiplab(fontface = "italic", offset = label_offset) +
-  xlim(0, tree_width) +
-  ggtitle("Portulaca Phylogeny")
+  xlim(0, tree_width)
 
 portulaca_ggtree_fig
 
@@ -181,8 +180,13 @@ mycol  <- read.csv("data/color_palette.csv", header = TRUE, sep = ",", na.string
 
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1) +
-  scale_color_gradientn(colors = mycol$x) +
-  ggtitle("Portulaca Phylogeny")
+  scale_color_gradientn(colors = mycol$x) 
+
+### for final figures
+
+portulaca_ggtree_fig +
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1) +
+  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Temperature (C)")
 
 ```
 
@@ -222,6 +226,14 @@ portulaca_ggtree +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
   scale_color_gradientn(colors = mycol$x, limits = c(9, 27))
 
+### for final figure
+
+portulaca_ggtree_fig +
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x, limits = c(9, 27), 
+                        name = "Mean Annual Temperature (C)")
+  
 ```
 
 ## Ancestral character state estimation using Phylogenetic Independent Contrasts
@@ -256,6 +268,14 @@ portulaca_ggtree +
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
   scale_color_gradientn(colors = mycol$x, limits = c(9, 27))
+
+### for final figures
+
+portulaca_ggtree_fig +
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Temperature (C)",
+                        limits = c(9,27))
 
 ```
 
@@ -340,6 +360,13 @@ plot(obj, fsize = c(0.5, 0.75), outline = FALSE, lwd = c(3, 7),
 
 write.csv(obj$cols, "data/color_palette.csv", row.names = FALSE)
 
+### for final figures
+
+plot(obj, fsize = c(0.5, 0.75), outline = FALSE, legend = FALSE, 
+     ylim=c(1-0.09*(Ntip(obj$tree)-1),Ntip(obj$tree)))
+add.color.bar(0.5, obj$cols, title = "Mean Annual Temperature (C)", digits = 3, 
+              prompt = FALSE, lwd = 7, outline = FALSE, fsize = c(0.5, 0.75), 
+              y=1-0.08*(Ntip(obj$tree)-1), subtitle = "", lims = obj$lims)
 ```
 
 
