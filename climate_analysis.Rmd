@@ -1,0 +1,75 @@
+---
+title: "Climate niche analysis"
+author: "Nora Heaphy"
+date: "11/29/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+library(tidyverse)
+library(ggplot2)
+library(ggpubr)
+library(ggforce)
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+### Clean up dataset
+
+```{r}
+
+# load in dataset of points and extracted environmental data
+chelsa_localities <- read.csv("data/all_localities_extracted_chelsa.csv", header = TRUE, 
+                              sep = ",", na.strings = "") 
+
+# remove rows with NULL values
+chelsa_localities_null <- filter(chelsa_localities, CHELSA_BIOL_01 == "NULL" | 
+                              CHELSA_BIOL_02 == "NULL" | 
+                              CHELSA_BIOL_03 == "NULL" | 
+                              CHELSA_BIOL_04 == "NULL" | 
+                              CHELSA_BIOL_05 == "NULL" | 
+                              CHELSA_BIOL_06 == "NULL" | 
+                              CHELSA_BIOL_07 == "NULL" | 
+                              CHELSA_BIOL_08 == "NULL" | 
+                              CHELSA_BIOL_09 == "NULL" | 
+                              CHELSA_BIOL_10 == "NULL" | 
+                              CHELSA_BIOL_11 == "NULL" | 
+                              CHELSA_BIOL_12 == "NULL" | 
+                              CHELSA_BIOL_13 == "NULL" | 
+                              CHELSA_BIOL_14 == "NULL" | 
+                              CHELSA_BIOL_15 == "NULL" | 
+                              CHELSA_BIOL_16 == "NULL" |
+                              CHELSA_BIOL_17 == "NULL" | 
+                              CHELSA_BIOL_18 == "NULL" | 
+                              CHELSA_BIOL_19 == "NULL")
+
+chelsa_localities <- setdiff(chelsa_localities, chelsa_localities_null)
+rm(chelsa_localities_null)
+
+# convert all the columns to the right format
+chelsa_localities$clade <- as.factor(chelsa_localities$clade)
+chelsa_localities$species <- as.factor(chelsa_localities$species)
+chelsa_localities$CHELSA_BIOL_01 <- as.numeric(chelsa_localities$CHELSA_BIOL_01)
+chelsa_localities$CHELSA_BIOL_02 <- as.numeric(chelsa_localities$CHELSA_BIOL_02)
+chelsa_localities$CHELSA_BIOL_03 <- as.numeric(chelsa_localities$CHELSA_BIOL_03)
+chelsa_localities$CHELSA_BIOL_04 <- as.numeric(chelsa_localities$CHELSA_BIOL_04)
+chelsa_localities$CHELSA_BIOL_05 <- as.numeric(chelsa_localities$CHELSA_BIOL_05)
+chelsa_localities$CHELSA_BIOL_06 <- as.numeric(chelsa_localities$CHELSA_BIOL_06)
+chelsa_localities$CHELSA_BIOL_07 <- as.numeric(chelsa_localities$CHELSA_BIOL_07)
+chelsa_localities$CHELSA_BIOL_08 <- as.numeric(chelsa_localities$CHELSA_BIOL_08)
+chelsa_localities$CHELSA_BIOL_09 <- as.numeric(chelsa_localities$CHELSA_BIOL_09)
+chelsa_localities$CHELSA_BIOL_10 <- as.numeric(chelsa_localities$CHELSA_BIOL_10)
+chelsa_localities$CHELSA_BIOL_11 <- as.numeric(chelsa_localities$CHELSA_BIOL_11)
+chelsa_localities$CHELSA_BIOL_12 <- as.numeric(chelsa_localities$CHELSA_BIOL_12)
+chelsa_localities$CHELSA_BIOL_13 <- as.numeric(chelsa_localities$CHELSA_BIOL_13)
+chelsa_localities$CHELSA_BIOL_14 <- as.numeric(chelsa_localities$CHELSA_BIOL_14)
+chelsa_localities$CHELSA_BIOL_15 <- as.numeric(chelsa_localities$CHELSA_BIOL_15)
+chelsa_localities$CHELSA_BIOL_16 <- as.numeric(chelsa_localities$CHELSA_BIOL_16)
+chelsa_localities$CHELSA_BIOL_17 <- as.numeric(chelsa_localities$CHELSA_BIOL_17)
+chelsa_localities$CHELSA_BIOL_18 <- as.numeric(chelsa_localities$CHELSA_BIOL_18)
+chelsa_localities$CHELSA_BIOL_19 <- as.numeric(chelsa_localities$CHELSA_BIOL_19)
+
+```
