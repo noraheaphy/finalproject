@@ -69,6 +69,9 @@ Finally, I will perform a hypothesis test comparing two means to determine if th
 
 **1. Climate niche analysis**
 
+![Anacampserotaceae-Portulaca Global Distribution](https://github.com/noraheaphy/finalproject/blob/master/figures/port_anacamps_map_11-29-2020.jpg)
+*Figure 4. (a) Global distribution of curated localities for Portulaca (blue) and Anacampserotaceae (red). Note that Anacampserotaceae has a much more restricted geographic distribution than Portulaca. (b) Australian distribution of curated localities for Portulaca (blue) and Calandrinia (red).*
+
 **2. Ancestral state reconstruction**
 
 
