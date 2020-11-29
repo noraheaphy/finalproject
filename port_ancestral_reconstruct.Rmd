@@ -72,6 +72,11 @@ portulacaTree <- drop.tip(portulacaTree, c("Portulaca halimoides", "Portulaca pu
 portulacaData <- portulacaData %>% filter(species != "Portulaca halimoides" &
                                             species != "Portulaca pusilla")
 
+## to run all analyses with P. perennis (really cold outlier) excluded, uncomment next section
+
+# portulacaTree <- drop.tip(portulacaTree, "Portulaca perennis")
+# portulacaData <- portulacaData %>% filter(species != "Portulaca perennis")
+
 # last check
 
 
