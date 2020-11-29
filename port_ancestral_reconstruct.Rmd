@@ -155,6 +155,15 @@ portulaca_ggtree = ggtree(portulacaTree) +
 
 portulaca_ggtree
 
+### for final figure
+
+portulaca_ggtree_fig = ggtree(portulacaTree) + 
+  geom_tiplab(fontface = "italic", offset = label_offset) +
+  xlim(0, tree_width) +
+  ggtitle("Portulaca Phylogeny")
+
+portulaca_ggtree_fig
+
 ```
 
 ## Plot character data onto tips
@@ -172,7 +181,8 @@ mycol  <- read.csv("data/color_palette.csv", header = TRUE, sep = ",", na.string
 
 portulaca_ggtree + 
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1) +
-  scale_color_gradientn(colors = mycol$x)
+  scale_color_gradientn(colors = mycol$x) +
+  ggtitle("Portulaca Phylogeny")
 
 ```
 

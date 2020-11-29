@@ -152,6 +152,15 @@ anacamps_ggtree = ggtree(anacampsTree) +
 
 anacamps_ggtree
 
+### for final figure
+
+anacamps_ggtree_fig = ggtree(anacampsTree) + 
+  geom_tiplab(fontface = "italic", offset = label_offset) +
+  xlim(0, tree_width) +
+  ggtitle("Anacampserotaceae Phylogeny")
+
+anacamps_ggtree_fig
+
 ```
 
 ## Plot character data onto tips
