@@ -74,8 +74,8 @@ portulacaData <- portulacaData %>% filter(species != "Portulaca halimoides" &
 
 ## to run all analyses with P. perennis (really cold outlier) excluded, uncomment next section
 
-# portulacaTree <- drop.tip(portulacaTree, "Portulaca perennis")
-# portulacaData <- portulacaData %>% filter(species != "Portulaca perennis")
+portulacaTree <- drop.tip(portulacaTree, "Portulaca perennis")
+portulacaData <- portulacaData %>% filter(species != "Portulaca perennis")
 
 # last check
 
@@ -281,6 +281,14 @@ portulaca_ggtree_fig +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
   scale_color_gradientn(colors = mycol$x, name = "Mean Annual Temperature (C)",
                         limits = c(9,27))
+
+### without P. perennis use different limits
+
+portulaca_ggtree_fig +
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Temperature (C)",
+                        limits = c(15,27))
 
 ```
 
