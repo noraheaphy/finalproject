@@ -369,15 +369,19 @@ ggplot(portulaca_anacamps, aes(x = CHELSA_BIOL_19, y = ..scaled.., fill = clade)
 portulaca_anacamps_scaled <- portulaca_anacamps %>% mutate(MAT = CHELSA_BIOL_01*0.1)
 portulaca_anacamps_scaled$clade <- droplevels(portulaca_anacamps_scaled$clade)
 
-ggplot(portulaca_anacamps_scaled, aes(x = MAT, y = CHELSA_BIOL_12, color = clade)) +
-  geom_point(size = 0.5) + 
-  scale_color_manual(values = c("Anacampserotaceae" = "red", "Portulaca" = "lightblue")) +
-  labs(title = "MAT vs. MAP", x = "Mean Annual Temperature (degrees C)", 
-       y = "Mean Annual Precipitation (kg/m^2)")
+portulaca <- portulaca_anacamps_scaled %>% filter(clade == "Portulaca")
+anacamps <- portulaca_anacamps_scaled %>% filter(clade == "Anacampserotaceae")
+
+ggplot(anacamps, aes(x = MAT, y = CHELSA_BIOL_12)) +
+  geom_point(size = 0.6, color = "grey") +
+  geom_point(data = portulaca, color = "black", size = 0.4) +
+  labs(title = "Anacampserotaceae and Portulaca Global Climate Space", 
+       x = "Mean Annual Temperature (degrees C)", 
+       y = "Mean Annual Precipitation (mm/year)")
 
 ggplot(portulaca_anacamps_scaled, aes(x = MAT, y = CHELSA_BIOL_12, color = clade)) +
-  geom_point(size = 0.5) + 
-  scale_color_manual(values = c("Anacampserotaceae" = "lightblue", "Portulaca" = "red")) +
+  geom_point(size = 1) + 
+  scale_color_manual(values = c("Anacampserotaceae" = "grey", "Portulaca" = "black")) +
   labs(title = "MAT vs. MAP", x = "Mean Annual Temperature (degrees C)", 
        y = "Mean Annual Precipitation (kg/m^2)")
 
@@ -540,6 +544,19 @@ ggplot(cal_port_aus_scaled, aes(x = MAT, y = CHELSA_BIOL_12, color = clade)) +
 ggplot(cal_port_aus_scaled, aes(x = MAT, y = CHELSA_BIOL_12, color = clade)) +
   geom_point(size = 0.5) + 
   scale_color_manual(values = c("Calandrinia" = "lightblue", "Portulaca" = "red")) +
+  labs(title = "MAT vs. MAP", x = "Mean Annual Temperature (degrees C)", 
+       y = "Mean Annual Precipitation (kg/m^2)")
+
+ggplot(calandrinia_aus, aes(x = MAT, y = CHELSA_BIOL_12)) +
+  geom_point(size = 0.6, color = "grey") +
+  geom_point(data = portulaca_aus, color = "black", size = 0.6) +
+  labs(title = "Calandrinia and Portulaca Australian Climate Space", 
+       x = "Mean Annual Temperature (degrees C)", 
+       y = "Mean Annual Precipitation (mm/year)")
+
+ggplot(cal_port_aus_scaled, aes(x = MAT, y = CHELSA_BIOL_12, color = clade)) +
+  geom_point(size = 1) + 
+  scale_color_manual(values = c("Calandrinia" = "grey", "Portulaca" = "black")) +
   labs(title = "MAT vs. MAP", x = "Mean Annual Temperature (degrees C)", 
        y = "Mean Annual Precipitation (kg/m^2)")
 
