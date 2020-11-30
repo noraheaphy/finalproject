@@ -222,6 +222,14 @@ portulaca_ggtree_fig +
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
   scale_color_gradientn(colors = mycol$x, name = "Mean Annual Precipitation (mm/year)")
+
+# same scale as anacamps
+
+portulaca_ggtree_fig +
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Precipitation (mm/year)",
+                        limits = c(134, 1275))
   
 ```
 
@@ -255,6 +263,14 @@ portulaca_ggtree_fig +
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
   scale_color_gradientn(colors = mycol$x, name = "Mean Annual Precipitation (mm/year)")
+
+# same scale as anacamps
+
+portulaca_ggtree_fig +
+  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
+  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Precipitation (mm/year)",
+                        limit = c(134, 1275))
 
 
 ```
