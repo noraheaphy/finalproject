@@ -1,5 +1,5 @@
 ---
-title: "Trait Evolution for Portulac MAT"
+title: "Phylogenetic Signal for Portulaca"
 author: "Nora Heaphy"
 date: "11/30/2020"
 output: html_document

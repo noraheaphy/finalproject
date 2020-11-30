@@ -1,0 +1,96 @@
+---
+title: "Phylogenetic Signal for Anacampserotaceae"
+author: "Nora Heaphy"
+date: "11/30/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+library(phytools)
+library(ape)
+library(geiger)
+library(caper)
+library(Rmpfr)
+library(OUwie)
+library(qpcR)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+#### Data Wrangling
+
+```{r}
+
+# load in tree and data
+anacampsTree <- read.tree("data/anacamps.treefile")
+
+anacampsData <- read.csv("data/anacamps_means_mapping.csv", header = TRUE, 
+                          sep = ",", na.strings = "") 
+rownames(anacampsData) <- anacampsData$species
+
+anacampsTree$tip.label = anacampsTree$tip.label %>%
+  str_replace("_", " ") %>%
+  str_replace("_.*", "")
+
+# prune tree to include only species we have climate data for
+species_character <- row.names(anacampsData) 
+anacampsTree <- drop.tip(anacampsTree, setdiff(anacampsTree$tip.label, species_character))
+anacampsTree <- drop.tip(anacampsTree, c(21,16,17,18,13,22,11,10,9,8)) # monophyletic duplicates
+anacampsTree <- drop.tip(anacampsTree, c(2,3,4)) # monophyletic duplicates round 2
+
+# put climate data in same order as tip labels
+anacampsData <- anacampsData[anacampsTree$tip.label,]
+
+# isolate MAT
+ana_mat <- anacampsData[,21]
+names(ana_mat) <- row.names(anacampsData)
+
+# isolate MAP
+ana_map <- anacampsData[,13]
+names(ana_map) <- row.names(anacampsData)
+
+```
+
+```{r fig.width=8, fig.height=10}
+
+ggtree(anacampsTree) + 
+  geom_tiplab(fontface = "italic") +
+  geom_text2(aes(label = node), col = "red", size = 3)
+
+```
+
+```{r}
+
+# plot tip labels for MAT
+obj <- contMap(anacampsTree, ana_mat, plot = FALSE)
+obj <- setMap(obj, invert = TRUE)
+plot(obj, lwd = 7)
+
+# plot tip labels for MAP
+obj <- contMap(anacampsTree, ana_map, plot = FALSE)
+obj <- setMap(obj, invert = TRUE)
+plot(obj, lwd = 7)
+
+```
+
+
+#### Estimate Phylogenetic Signal
+
+Phylogenetic signal describes the tendency for related species to resemble each other more than species drawn at random from the same tree. The amount of "phylogenetic signal" in the trait data essentially tells us how much of this observed trait variation is simply due to time since divergence 
+
+The method below uses Blomberg's K to estimate phylogenetic signal. Values of K range from 0 to infinity, with an expected value of 1.0 under Brownian motion. 
+
+Values of K<1.0 describe data with less phylogenetic signal than expected, and values of K>1.0 describe data with greater phylogenetic signal than expected due to chance.
+
+There are other statistics for measuring phylogenetic signal, like Pagel's lambda.
+
+```{r}
+
+phylosig(anacampsTree, ana_mat, method = "K")
+
+phylosig(anacampsTree, ana_map, method = "K")
+
+```
