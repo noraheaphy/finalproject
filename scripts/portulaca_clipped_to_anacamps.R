@@ -12,10 +12,10 @@ library(tidyverse)
 library(ggplot2)
 
 # load in datasets
-port_clipped <- read.csv("port_clipped_to_ana_11-29-2020.csv", header = TRUE, sep = ",", 
+port_clipped <- read.csv("data/port_clipped_to_ana_11-29-2020.csv", header = TRUE, sep = ",", 
                            na.strings = "") 
-anacamps <- read.csv("all_localities_extracted_clean_11-29-2020.csv", header = TRUE, sep = ",",
-                     na.strings = "") %>%
+anacamps <- read.csv("data/all_localities_extracted_clean_11-29-2020.csv", header = TRUE, 
+                     sep = ",", na.strings = "") %>%
   filter(clade == "Anacampserotaceae")
 
 # remove everything with a NULL value
@@ -53,6 +53,9 @@ anacamps <- anacamps %>% mutate(MAT = CHELSA_BIOL_01*0.1)
 port_ana_clipped <- bind_rows(port_clipped, anacamps)
 write.csv(port_ana_clipped, "port_ana_clipped_11-29-2020.csv", row.names = F)
 
+port_ana_clipped <- read.csv("data/port_ana_clipped_11-29-2020.csv", header = TRUE,
+                             sep = ",", na.strings = "")
+
 # subset to only clade and environmental variables
 port_ana_clipped <- port_ana_clipped %>% select(clade, CHELSA_BIOL_01:MAT)
 
@@ -68,14 +71,14 @@ summary.aov(speciesMAN)
 
 ggplot(port_ana_clipped, aes(x = MAT, y = CHELSA_BIOL_12, color = clade)) +
   geom_point(size = 0.5) + 
-  scale_color_manual(values = c("Anacampserotaceae" = "red", "Portulaca" = "lightblue")) +
-  labs(title = "MAT vs. MAP", x = "Mean Annual Temperature (degrees C)", 
+  scale_color_manual(values = c("Anacampserotaceae" = "black", "Portulaca" = "grey")) +
+  labs(title = "Portulaca (Clipped) Niche Space", x = "Mean Annual Temperature (degrees C)", 
        y = "Mean Annual Precipitation (mm/year)")
 
 ggplot(port_ana_clipped, aes(x = MAT, y = CHELSA_BIOL_12, color = clade)) +
   geom_point(size = 0.5) + 
-  scale_color_manual(values = c("Anacampserotaceae" = "lightblue", "Portulaca" = "red")) +
-  labs(title = "MAT vs. MAP", x = "Mean Annual Temperature (degrees C)", 
+  scale_color_manual(values = c("Anacampserotaceae" = "grey", "Portulaca" = "black")) +
+  labs(title = "Anacampserotaceae Niche Space", x = "Mean Annual Temperature (degrees C)", 
        y = "Mean Annual Precipitation (mm/year)")
 
 ########### KERNEL DENSITY PLOTS ###########
