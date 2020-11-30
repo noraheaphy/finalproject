@@ -1,12 +1,11 @@
 ---
-title: "Portulaca Ancestral Reconstruction"
+title: "Portulaca MAP Reconstruction"
 author: "Nora Heaphy"
-date: "11/15/2020"
+date: "11/30/2020"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 
 library(ape)
 library(ggtree)
@@ -15,6 +14,8 @@ library(tidyverse)
 library(ggplot2)
 library(phylotools)
 library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
@@ -92,7 +93,6 @@ write.csv(portulacaData, "data/portulaca_means_mapping.csv", row.names = FALSE)
 
 ```
 
-
 ```{r fig.width=9, fig.height=18}
 
 # plot tree
@@ -160,15 +160,6 @@ root_age = max(dist.nodes(portulacaTree)[, root_node])
 label_offset = 0.02 * root_age
 tree_width = 1.5 * root_age
 
-portulaca_ggtree = ggtree(portulacaTree) + 
-  geom_tiplab(fontface = "italic", offset = label_offset) +
-  xlim(0, tree_width) +
-  geom_text2(aes(label = node), col = "red", nudge_x = label_offset/2, size = 2)
-
-portulaca_ggtree
-
-### for final figure
-
 portulaca_ggtree_fig = ggtree(portulacaTree) + 
   geom_tiplab(fontface = "italic", offset = label_offset) +
   xlim(0, tree_width)
@@ -185,20 +176,14 @@ portulaca_ggtree_fig
 # corresponds to each node in the tree, both at the tips and at the internal 
 # nodes. Since we don't have values for the internal nodes, we will pad them 
 # with NA (Not Available) for now.
-node_values = c(portulacaData$MAT, rep(NA, n_tips-1))
+node_values = c(portulacaData$CHELSA_BIOL_12, rep(NA, n_tips-1))
 
 # read in color palette
 mycol  <- read.csv("data/color_palette.csv", header = TRUE, sep = ",", na.strings = "")
 
-portulaca_ggtree + 
-  geom_tippoint(aes(color = node_values), size = 3, alpha = 1) +
-  scale_color_gradientn(colors = mycol$x) 
-
-### for final figures
-
 portulaca_ggtree_fig +
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1) +
-  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Temperature (C)")
+  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Precipitation (mm/year)")
 
 ```
 
@@ -210,7 +195,7 @@ portulaca_ggtree_fig +
 portulacaTree$edge.length[portulacaTree$edge.length==0] = 1e-6
 
 mat_ancestral = 
-  ace(portulacaData$MAT, 
+  ace(portulacaData$CHELSA_BIOL_12, 
     portulacaTree, 
     type = "continuous", 
     method = "REML", 
@@ -222,7 +207,6 @@ mat_ancestral
 
 ```
 
-
 ## Plot reconstructed states on phylogeny
 
 ```{r}
@@ -232,20 +216,12 @@ mat_ancestral
 # nodes. Since we don't have values for the internal nodes, we will pad them 
 # with NA (Not Available) for now.
 
-node_values = c(portulacaData[,22], mat_ancestral$ace)
-
-portulaca_ggtree + 
-  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  scale_color_gradientn(colors = mycol$x, limits = c(9, 27))
-
-### for final figure
+node_values = c(portulacaData[,13], mat_ancestral$ace)
 
 portulaca_ggtree_fig +
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  scale_color_gradientn(colors = mycol$x, limits = c(9, 27), 
-                        name = "Mean Annual Temperature (C)")
+  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Precipitation (mm/year)")
   
 ```
 
@@ -254,7 +230,7 @@ portulaca_ggtree_fig +
 ```{r}
 
 mat_ancestral_pic = 
-  ace(portulacaData$MAT, 
+  ace(portulacaData$CHELSA_BIOL_12, 
     portulacaTree, 
     type="continuous", 
     method="pic", 
@@ -265,8 +241,6 @@ mat_ancestral_pic
 
 ```
 
-
-
 ## Plot reconstructed states on phylogeny
 
 ```{r}
@@ -275,90 +249,13 @@ mat_ancestral_pic
 # corresponds to each node in the tree, both at the tips and at the internal 
 # nodes. Since we don't have values for the internal nodes, we will pad them 
 # with NA (Not Available) for now.
-node_values = c(portulacaData[,22], mat_ancestral_pic$ace )
-
-portulaca_ggtree + 
-  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  scale_color_gradientn(colors = mycol$x, limits = c(9, 27))
-
-### for final figures
+node_values = c(portulacaData[,13], mat_ancestral_pic$ace )
 
 portulaca_ggtree_fig +
   geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
   geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Temperature (C)",
-                        limits = c(9,27))
+  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Precipitation (mm/year)")
 
-### without P. perennis use different limits
-
-portulaca_ggtree_fig +
-  geom_tippoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1 ) +
-  scale_color_gradientn(colors = mycol$x, name = "Mean Annual Temperature (C)",
-                        limits = c(15,27))
-
-```
-
-## Compare REML and PIC methods
-
-```{r}
-
-D_methods = data.frame(
-  reml = mat_ancestral$ace,
-  pic = mat_ancestral_pic$ace
-)
-
-# Add node numbers to the data frame
-D_methods$node = seq(1:nrow(D_methods)) + n_tips
-
-D_methods %>%
-  ggplot(aes(x = reml,y = pic)) +
-  geom_point() +
-  geom_text(aes(label = node), color = "red", vjust = 0, nudge_y = 0.005) +
-  geom_abline(slope = 1, intercept = 0, color = "blue")
-
-# Add confidence intervals to dataframe
-D_methods$CI_reml_lower <- mat_ancestral$CI95[,1]
-D_methods$CI_reml_upper <- mat_ancestral$CI95[,2]
-D_methods$CI_pic_lower <- mat_ancestral_pic$CI95[,1]
-D_methods$CI_pic_upper <- mat_ancestral_pic$CI95[,2]
-
-# print in table
-kable(D_methods)
-
-```
-
-
-## Confidence and node age
-
-The code below explores the width of the confidence intervals for each reconstruction.
-
-```{r}
-
-# for REML
-interval_width = mat_ancestral$CI95[,2] - mat_ancestral$CI95[,1]
-node_values = c(rep(NA, nrow(portulacaData)), interval_width)
-
-portulaca_ggtree + 
-  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
-  scale_color_gradientn(colors = mycol$x)
-
-# for PIC
-interval_width = mat_ancestral_pic$CI95[,2] - mat_ancestral_pic$CI95[,1]
-node_values = c(rep(NA, nrow(portulacaData)), interval_width)
-
-portulaca_ggtree + 
-  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
-  scale_color_gradientn(colors = mycol$x)
-
-# for the difference between the two reconstruction methods
-interval_width = mat_ancestral_pic$ace - mat_ancestral$ace
-node_values = c(rep(NA, nrow(portulacaData)), interval_width)
-
-portulaca_ggtree + 
-  geom_nodepoint(aes(color = node_values), size = 3, alpha = 1) +
-  scale_color_gradientn(colors = mycol$x)
 
 ```
 
@@ -370,24 +267,19 @@ http://www.phytools.org/Cordoba2017/ex/15/Plotting-methods.html
 # read in character data again
 portulacaData <- read.csv("data/portulaca_means_mapping.csv", header = TRUE, row.names = 1)
 
-portulacaData <- portulacaData %>% select(MAT)
+portulacaData <- portulacaData %>% select(CHELSA_BIOL_12)
 
 portulacaData <- setNames(portulacaData[,1], rownames(portulacaData))
 
 obj <- contMap(portulacaTree, portulacaData, plot = FALSE)
 obj <- setMap(obj, invert = TRUE)
-plot(obj, fsize = c(0.5, 0.75), outline = FALSE, lwd = c(3, 7), 
-     leg.txt = "Mean annual temperature (C)")
-
-write.csv(obj$cols, "data/color_palette.csv", row.names = FALSE)
-
-### for final figures
 
 plot(obj, fsize = c(0.5, 0.75), outline = FALSE, legend = FALSE, 
      ylim=c(1-0.09*(Ntip(obj$tree)-1),Ntip(obj$tree)))
-add.color.bar(0.5, obj$cols, title = "Mean Annual Temperature (C)", digits = 3, 
+add.color.bar(0.5, obj$cols, title = "Mean Annual Precipitation (mm/year)", digits = 3, 
               prompt = FALSE, lwd = 7, outline = FALSE, fsize = c(0.5, 0.75), 
               y=1-0.08*(Ntip(obj$tree)-1), subtitle = "", lims = obj$lims)
-```
 
+write.csv(obj$cols, "data/color_palette.csv", row.names = FALSE)
+```
 
