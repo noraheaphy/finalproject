@@ -73,22 +73,22 @@ Finally, I will perform a hypothesis test comparing two means to determine if th
 *Figure 4. Global distribution of curated localities for Portulaca (blue) and Anacampserotaceae (red). Note that Anacampserotaceae has a much more restricted geographic distribution than Portulaca.*
 
 ![Anacampserotaceae-Portulaca Climate Space Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/ana_port_biplots.png)
-*Figure 5.* 
+*Figure 5. Mean annual temperature (MAT) vs. mean annual precipitation (MAP) for Anacampserotaceae (a) and Portulaca (b) with respect to each other's climate niche space. Portulaca occupies almost the entire available niche space including Anacampserotaceae's niche space, but also extends beyond Anacampserotaceae into a warmer and wetter zone.* 
 
 ![Calandrinia-Portulaca Australian Distribution](https://github.com/noraheaphy/finalproject/blob/master/figures/calandrinia_port_map_11-29-2020.jpg)
 *Figure 6. Australian distribution of curated localities for Portulaca (blue) and Calandrinia (red). While the distributions of the two groups overlap, Portulaca is mostly confined to the northern part of the continent, the warmer and wetter part of the total climate space of Australia.*
 
 ![Calandrinia-Portulaca Climate Space Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/cal_port_aus_biplots.png)
-*Figure 7.*
+*Figure 7. Mean annual temperature (MAT) vs. mean annual precipitation (MAP) for Calandrinia (a) and Portulaca (b) with respect to each other's climate niche space in Australia. The curved shape of the niche space is representative of the shape of the total available climate space in Australia. Portulaca's niche space entirely overlaps with that of Calandrinia, but represents the warmer and wetter part of Calandrinia's total niche.*
 
 ![Anacampserotaceae-Portulaca With Buffer Map](https://github.com/noraheaphy/finalproject/blob/master/figures/port_ana_buffer_exluded.jpg)
-*Figure 8.*
+*Figure 8. Portulaca points included in buffered analysis (blue) represent only Portulaca localities within 500 km of an Anacampserotaceae locality. Portulaca localities located outside of Anacampserotaceae's typical range are depicted in yellow and excluded from this analysis. This is an attempt to determine whether the differences in climate niche space between Anacampserotaceae and Portulaca observed above are only due to Portulaca's wider geographic range.*
 
 ![Anacampserotaceae-Portulaca With Buffer Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/port_ana_buffer_biplots.png)
-*Figure 9.*
+*Figure 9. Mean annual temperature (MAT) vs. mean annual precipitation (MAP) for Anacampserotaceae (a) and Portulaca (b) with respect to each other's climate niche space. Even when restricting the analysis to Portulaca points that roughly co-occur with Anacampserotaceae points, Portulaca is clearly moving into a new climate niche characterized by higher temperatures and precipitation.*
 
 ![Outgroups Climate Niche](https://github.com/noraheaphy/finalproject/blob/master/figures/outgroups_climate.png)
-*Figure 10.*
+*Figure 10. Includes Cactaceae and Talinum as outgroups for Anacampserotaceae and Portulaca, forming the APCT clade. (a) Mean annual temperature. (b) Minimum temperature of the coldest month. (c) Mean annual precipitation. (d) Precipitation seasonality. Portulaca is moving into a warmer and wetter climate niche space than that which is occupied by any of its closest relatives.*
 
 **2. Ancestral state reconstruction**
 
