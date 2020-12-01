@@ -72,12 +72,33 @@ Finally, I will perform a hypothesis test comparing two means to determine if th
 ![Anacampserotaceae-Portulaca Global Distribution](https://github.com/noraheaphy/finalproject/blob/master/figures/port_anacamps_map_11-29-2020.jpg)
 *Figure 4. Global distribution of curated localities for Portulaca (blue) and Anacampserotaceae (red). Note that Anacampserotaceae has a much more restricted geographic distribution than Portulaca.*
 
+![Anacampserotaceae-Portulaca Climate Space Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/ana_port_biplots.png)
+*Figure 5.* 
+
 ![Calandrinia-Portulaca Australian Distribution](https://github.com/noraheaphy/finalproject/blob/master/figures/calandrinia_port_map_11-29-2020.jpg)
-*Figure 5. Australian distribution of curated localities for Portulaca (blue) and Calandrinia (red). While the distributions of the two groups overlap, Portulaca is mostly confined to the northern part of the continent, the warmer and wetter part of the total climate space of Australia.*
+*Figure 6. Australian distribution of curated localities for Portulaca (blue) and Calandrinia (red). While the distributions of the two groups overlap, Portulaca is mostly confined to the northern part of the continent, the warmer and wetter part of the total climate space of Australia.*
+
+![Calandrinia-Portulaca Climate Space Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/cal_port_aus_biplots.png)
+*Figure 7.*
+
+![Anacampserotaceae-Portulaca With Buffer Map](https://github.com/noraheaphy/finalproject/blob/master/figures/port_ana_buffer_exluded.jpg)
+*Figure 8.*
+
+![Anacampserotaceae-Portulaca With Buffer Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/port_ana_buffer_biplots.png)
+*Figure 9.*
+
+![Outgroups Climate Niche](https://github.com/noraheaphy/finalproject/blob/master/figures/outgroups_climate.png)
+*Figure 10.*
 
 **2. Ancestral state reconstruction**
 
+![MAT character state mapped to tips](https://github.com/noraheaphy/finalproject/blob/master/figures/mat_mapped_to_tips.png)
 
+![REML MAT ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/figures/REML_reconstruction_mat.png)
+
+![PIC MAT ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/figures/PIC_reconstruction_mat.png)
+
+![Compare ancestral reconstruction methods](https://github.com/noraheaphy/finalproject/blob/master/figures/compare_mat_pic_reml.png)
 
 ## References
 
