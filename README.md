@@ -1,10 +1,10 @@
-# Phylogenetic Biology - Final Project
+# Climate niche evolution in C4-CAM Portulaca and closely related C3-CAM lineages
 
-## Climate niche evolution in C4-CAM Portulaca and closely related C3-CAM lineages
+## Phylogenetic Biology - Final Project
 
 ![Portullugo Intro](https://github.com/noraheaphy/finalproject/blob/master/figures/portullugo_intro_photos.png)
 
-### Background
+## Background
 
 C4 and CAM are two photosynthetic pathways that have evolved from C3 photosynthesis hundreds of times independently over the last 30 million years (Figure 1). While biochemically similar, they are understood to represent two distinct ecological adaptations. The C4 pathway confers high photosynthetic rates, allowing C4 plants to live in hot temperatures and high light environments, while the CAM pathway confers high water use efficiency and drought tolerance, allowing CAM plants to live in arid regions (Edwards and Ogburn, 2012). There are a number of anatomical and ecological factors that would lead us to expect CAM and C4 to be mutually exclusive; characteristics favorable to evolving one pathway would seemingly disadvantage the other pathway. However, the purslane lineage (Portulaca) is able to operate both CAM and C4 cycles in a single leaf and is the only plant known to display this unique photosynthetic combination (Ferrari et al. 2019). Portulaca likely had a facultative CAM ancestor that subsequently evolved a C4 cycle at least three separate times while maintaining its CAM capabilities (Guralnick et al. 2008). 
 
@@ -18,9 +18,9 @@ For this project, I will investigate how evolving C4-CAM photosynthesis affected
 
 The delineation of species and clades within Portulaca and its sister groups are not well established. However, a phylogenetic perspective is critical to understanding the ecological implications of evolving C4-CAM photosynthesis as well as, more broadly, understanding how selection forces and genetic or biophysical constraints enable global convergent evolution of highly complex traits. Portulaca’s unique C4-CAM photosynthesis contradicts previous hypotheses that ecological and functional selection factors drive the evolution of CAM and C4 along predominantly separate trajectories, as does the presence of both CAM species and C4 species in many major clades. A more complete understanding of Portulaca as a model system for studying the evolution and ecological implications of CAM and C4 would further our knowledge of how organisms can evolve complex traits convergently and could eventually allow researchers to bioengineer both photosynthetic syndromes into a single crop, conferring drought tolerance and high productivity simultaneously and enabling agriculture in regions whose food security is threatened by climate change.
 
-### Methods
+## Methods
 
-**1. Climate data acquisition**
+### **1. Climate data acquisition**
 I have downloaded all available specimen collection records for Portulaca, Anacampserotaceae, Cactaceae, Talinum, and Calandrinia from the [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/), supplemented with localities from the [Australian Virtual Herbarium](https://avh.chah.org.au/). I have thoroughly curated these records using the R package [Coordinate Cleaner](https://github.com/ropensci/CoordinateCleaner) to remove erroneous localities and verified taxonomic names to the fullest extent possible using the most plausible published phylogenies of these lineages. I have also excluded records from P. oleracea, P. pilosa, T. paniculatum, and T. fruticosum, as these are globally widespread weeds that would necessarily skew analyses of climatic niche. I downloaded environmental data in the form of global raster layers from [CHELSA](https://chelsa-climate.org/bioclim/). These 19 standard bioclimatic variables are shown in Table 1. I then extracted environmental data for each specimen locality in ArcGIS Pro. All analyses were conducted over a spatial resolution of 1 km<sup>2</sup> under the geodetic datum WGS84. A full dataset of localities, associated collection data, and extracted environmental variables is available in the data folder: [all_localities_extracted.csv](https://github.com/noraheaphy/finalproject/blob/master/data/all_localities_extracted_chelsa.csv). The scripts used to assemble, clean, and extract data are available in the scripts folder: [clean_gbif_data.R](https://github.com/noraheaphy/finalproject/blob/master/scripts/clean_gbif_data.R) and [env_extract.R](https://github.com/noraheaphy/finalproject/blob/master/scripts/env_extract.R)
 
 | Variable name | Bioclimatic variable | Units |
@@ -47,11 +47,11 @@ I have downloaded all available specimen collection records for Portulaca, Anaca
 
 *Table 1. Standard CHELSA bioclimatic variables. More information on this dataset is available at Karger, et al. 2017.*
 
-**2. Molecular data acquisition**
+### **2. Molecular data acquisition**
 I will obtain the full data matrix of genes and taxa assembled by Ocampo & Columbus (2012), comprising 80 samples of Portulaca, representing 59 species, 10 subspecies, 3 cultivars, and 3 outgroups from Cactaceae, Talinaceae, and Montiaceae. The matrix includes nuclear ribosomal DNA loci (ITS, comprising ITS1, the 5.8S gene, and ITS2) and chloroplast DNA loci (protein-coding ndhF, trnT-psbD intergenic spacer, and ndhA intron. The P. oleracea species complex, which is taxonomically complicated and contested, is considered at the subspecies level. I will obtain the full baits data matrix for Portullugo from the Edwards Lab and subset this dataset to the Anacampserotaceae taxa and a few outgroups from Cactaceae and Talinaceae. 
 **Note:** The climate niche comparison between Anacampserotaceae and Portulaca is primarily phylogenetic, while the comparison between Calandrinia and Portulaca is primarily geographic. Therefore, Calandrinia is not currently included in the following phyolgenetic analyses.
 
-**3. Phylogenetic inference** 
+### **3. Phylogenetic inference** 
 I will use these two data matrices to infer phylogenies for Anacampserotaceae and Portulaca separately via Bayesian MCMC methods in RevBayes. A major obstacle to using phylogenetic comparative methods across the APCT clade is that the phylogenies described above were constructed using different forms of data (transcription enrichment, whole-plastome sequencing, PCR, etc). Topologies can be combined relatively easily, but generating meaningful edge lengths is more complicated. Therefore, I will estimate edge lengths independently, and then based on the preponderance of evidence that these two groups are sister clades, I will graft the trees together, calibrate edge lengths accordingly, and test the calibrations by adding jitter into the sensitivity analysis. The support for the tree will be assessed based on the Bayesian posterior probabilities for each node. I will also retain the entire posterior distribution for use in later analyses. However, given time constraints, I am currently working with completed versions of the Ocampus & Columbus (2012) and Moore et al. (2018) phylogenies for Portulaca and Anacampserotaceae respectively that were previously inferred by members of the Edwards Lab (Figure 3). NEXUS files for each phylogeny can be found in the data folder of the repository: [Portulaca](https://github.com/noraheaphy/finalproject/blob/master/data/Ocampo_Portulaca.parts.treefile) and [Anacampserotaceae](https://github.com/noraheaphy/finalproject/blob/master/data/anacamps.treefile)
 
 #
@@ -59,15 +59,15 @@ I will use these two data matrices to infer phylogenies for Anacampserotaceae an
 ![Portullugo Phylogeny from Moore et al. 2018](https://github.com/noraheaphy/finalproject/blob/master/figures/portullugo_phylo_Moore2018.png)
 *Figure 3. Consensus tree generated for Portullugo by Moore, et al. 2018. Relationships between all major clades are well-supported (>95% bootstrap) in both coalescent (ASTRAL) and concatenated (RAxML) species trees.*
 
-**4. Ancestral state reconstruction**
+### **4. Ancestral state reconstruction**
 I will calculate species level mean and variance for each environmental variable for all taxa in the phylogeny, and then using the R packages phytools, ape, and ggtree, I will map these climate character states onto the tips of the phylogeny, infer the character states of internal nodes and reconstruct the ancestral states for the base of the Anacampserotaceae clade and the base of the Portulaca clade. I will use, first, a Brownian motion model to perform a Restricted Maximum Likelihood (REML) reconstruction of continuous character state evolution across each tree, and then I will repeat the process using Phylogenetic Independent Contrasts (PIC).
 
-**5. Hypothesis test on posterior distribution**
+### **5. Hypothesis test on posterior distribution**
 Finally, I will perform a hypothesis test comparing two means to determine if the difference in environmental variables reconstructed at the ancestral nodes of Anacampserotaceae and Portulaca is statistically significant. The posterior distribution of trees resulting from the Bayesian inference will constitute the null distribution for the hypothesis test. By examining this difference in means across the posterior distribution of trees, I will be able to assess the sensitivity of my results to different topologies and edge length calibrations.
 
-### Results
+## Results
 
-**1. Climate niche analysis**
+### **1. Climate niche analysis**
 
 ![Anacampserotaceae-Portulaca Global Distribution](https://github.com/noraheaphy/finalproject/blob/master/figures/port_anacamps_map_11-29-2020.jpg)
 *Figure 4. Global distribution of curated localities for Portulaca (blue) and Anacampserotaceae (red). Note that Anacampserotaceae has a much more restricted geographic distribution than Portulaca.*
@@ -90,7 +90,7 @@ Finally, I will perform a hypothesis test comparing two means to determine if th
 ![Outgroups Climate Niche](https://github.com/noraheaphy/finalproject/blob/master/figures/outgroups_climate.png)
 *Figure 10. Includes Cactaceae and Talinum as outgroups for Anacampserotaceae and Portulaca, forming the APCT clade. (a) Mean annual temperature. (b) Minimum temperature of the coldest month. (c) Mean annual precipitation. (d) Precipitation seasonality. Portulaca is moving into a warmer and wetter climate niche space than that which is occupied by any of its closest relatives.*
 
-**2. Ancestral state reconstruction**
+### **2. Ancestral state reconstruction**
 
 ![Taxa included in analysis](https://github.com/noraheaphy/finalproject/blob/master/figures/phylogenies_selected_taxa.png)
 *Figure 11. Taxa drawn from Ocampo & Columbus 2012 (Portulaca) and Moore et al 2018 (Anacampserotaceae), for which I have both climate and phylogenetic data. The root of each tree is marked in red.*
