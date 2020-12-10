@@ -122,20 +122,29 @@ To ensure a more accurate phylogenetic comparison, I incorporated global climate
 
 ### **4. Ancestral state reconstruction**
 
-### MAT character state mapped to tips
-
-![MAT character state mapped to tips](https://github.com/noraheaphy/finalproject/blob/master/figures/mat_mapped_to_tips.png)
-*Figure 12. Mean annual temperature mapped onto tips of the tree.*
+Restricted maximum likelihood (REML) and phylogenetic independent contrasts (PIC) both reconstructed the ancestral temperature and precipitation niche of Portulaca to be higher than the ancestral niche of Anacampserotaceae (Figure 14). Under REML, Portulaca’s ancestor is reconstructed to have a mean annual temperature of 22.9°C, while Anacampserotaceae’s ancestor is reconstructed to have a mean annual temperature of 17°C. Under PIC, Portulaca’s ancestral value is 21.5°C, and Anacampserotaceae’s is 17.2°C. Estimates of node character values are well outside the other group’s 95% confidence interval, but estimates for PIC vs. REML for the same species are within each other’s confidence interval. The reconstructed values for precipitation niche similarly diverge across the two groups but are similar for each reconstruction method. Portulaca’s ancestor is estimated to have a mean annual precipitation of 668 mm/year under REML and 626 mm/year under PIC, while Anacampserotaceae’s ancestor has a mean annual precipitation of 374 mm/year under both REML and PIC.
 
 ### REML MAT ancestral reconstruction
 
-![REML MAT ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/figures/REML_reconstruction_mat.png)
-*Figure 13. Ancestral reconstruction of mean annual temperature at internal nodes using Restricted Maximum Likelihood (REML). Note that the ancestral node for Portulaca is reconstructed at a higher temperature (22 C) than that of the Anacampserotaceae root node (16 C).*
+![REML MAT ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/figures/reml_mat_final.png)
+*Figure 14a. Restricted maximum likelihood (REML) reconstructions of the ancestral temperature niche of Portulaca (left) and Anacampserotaceae (right). Tip nodes represent averages of all localities for each species. Note that the scales are different in order to show a meaningful distribution of colors. Portulaca’s ancestral niche is reconstructed to be 22.9°C, 95% CI [1.99-43.8], while Anacampserotaceae’s ancestral niche is reconstructed as 17°C, 95% CI [16.6-18.0].*
 
 ### PIC MAT ancestral reconstruction
 
-![PIC MAT ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/figures/PIC_reconstruction_mat.png)
-*Figure 14. Ancestral reconstruction of mean annual temperature at internal nodes using Phylogenetic Independent Contrasts (PIC). As above, the ancestral node for Portulaca is reconstructed at a higher temperature (22 C) than that of the Anacampserotaceae root node (16 C).*
+![PIC MAT ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/figures/pic_mat_final.png)
+*Figure 14b. Phylogenetic independent contrasts (PIC) reconstructions of the ancestral temperature niche of Portulaca (left) and Anacampserotaceae (right). Tip nodes represent averages of all localities for each species. Note that the scales are different in order to show a meaningful distribution of colors. Portulaca’s ancestral niche is reconstructed to be 21.5°C, 95% CI [20.0-23.1], while Anacampserotaceae’s ancestral niche is reconstructed as 17.2°C, 95% CI [16.3-18.3].*
+
+### REML MAP ancestral reconstruction
+
+![REML MAP ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/figures/reml_map_final.png)
+*Figure 14c. Restricted maximum likelihood (REML) reconstructions of the ancestral precipitation niche of Portulaca (left) and Anacampserotaceae (right). Tip nodes represent averages of all localities for each species. Note that the scales are different in order to show a meaningful distribution of colors. Portulaca’s ancestral niche is reconstructed to be 668 mm/year, 95% CI [647-689], while Anacampserotaceae’s ancestral niche is reconstructed as 374 mm/year, 95% CI [343-406].*
+
+### PIC MAP ancestral reconstruction
+
+![PIC MAP ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/figures/pic_map_final.png)
+*Figure 14d. Phylogenetic independent contrasts (PIC) reconstructions of the ancestral precipitation niche of Portulaca (left) and Anacampserotaceae (right). Tip nodes represent averages of all localities for each species. Note that the scales are different in order to show a meaningful distribution of colors. Portulaca’s ancestral niche is reconstructed to be 626 mm/year, 95% CI [624-627], while Anacampserotaceae’s ancestral niche is reconstructed as 374 mm/year, 95% CI [372-376].*
+
+Examining the distribution of character values at the tips of each tree, we see that temperature is more clustered in the phylogeny than precipitation. With the exception of a particularly cold clade that includes the Chilean outlier P. perennis, every tip in Portulaca has a higher temperature than any tip in Anacampserotaceae, though there is more overlap between the groups for precipitation niche. The distribution of tips along the tree indicates that their doesn’t seem to be any particularly warm or wet Portulaca clade that is pulling up the average of the entire group. A comparison of the performance of the REML and PIC ancestral reconstruction methods shows that with a few exceptions, both methodologies reconstruct very similar values for the same node (Figure 15). Most importantly, the ancestral nodes—49 for Portulaca and 11 for Anacampserotaceae—are very close to the line and therefore do not differ greatly between REML and PIC reconstructions.
 
 ### Comparison of ancestral reconstruction methods
 
