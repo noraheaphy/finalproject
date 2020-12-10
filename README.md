@@ -26,8 +26,8 @@ I have downloaded all available specimen collection records for Portulaca, Anaca
 | Variable name | Bioclimatic variable | Units |
 |--------------|----------------------|-------|
 | Bio1 | Annual Mean Temperature | &deg;C * 10 |
-| Bio2 | Mean Diurnal Range | &deg;C |
-| Bio3 | Isothermality | NA |
+| Bio2 | Mean Diurnal Range | &deg;C * 10 |
+| Bio3 | Isothermality | N/A |
 | Bio4 | Temperature Seasonality | standard deviation |
 | Bio5 | Max Temperature of Warmest Month | &deg;C * 10 |
 | Bio6 | Min Temperature of Coldest Month | &deg;C * 10 |
@@ -48,7 +48,7 @@ I have downloaded all available specimen collection records for Portulaca, Anaca
 *Table 1. Standard CHELSA bioclimatic variables. More information on this dataset is available at Karger, et al. 2017.*
 
 ### **2. Molecular data acquisition**
-I had hoped to obtain the full data matrix of genes and taxa assembled by Ocampo and Columbus (2012), comprising 80 samples of Portulaca, representing 59 species, 10 subspecies, 3 cultivars, and 3 outgroups from Cactaceae, Talinaceae, and Montiaceae. The matrix includes nuclear ribosomal DNA loci (ITS, comprising ITS1, the 5.8S gene, and ITS2) and chloroplast DNA loci (protein-coding ndhF, trnT-psbD intergenic spacer, and ndhA intron. The P. oleracea species complex, which is taxonomically complicated and contested, is considered at the subspecies level. However, given the time constraints of the project and the unresponsiveness of the paper's authors, I opted instead to use a tree file provided by Ian Gilman in the Edwards Lab who had previously replicated Ocampo and Columbus's analysis. I obtained a full phylogeny for the Portullugo clade from the Edwards Lab (Figure 3) and subsetted this dataset to the Anacampserotaceae taxa. NEXUS files for each phylogeny can be found in the data folder of the repository: [Portulaca](https://github.com/noraheaphy/finalproject/blob/master/data/Ocampo_Portulaca.parts.treefile) and [Anacampserotaceae](https://github.com/noraheaphy/finalproject/blob/master/data/anacamps.treefile)
+I had hoped to obtain the full data matrix of genes and taxa assembled by Ocampo and Columbus (2012), comprising 80 samples of Portulaca—59 species, 10 subspecies, 3 cultivars, and 3 outgroups from Cactaceae, Talinaceae, and Montiaceae. The matrix was assembled from nuclear ribosomal DNA loci (ITS, comprising ITS1, the 5.8S gene, and ITS2) and chloroplast DNA loci (protein-coding ndhF, trnT-psbD intergenic spacer, and ndhA intron. However, given the time constraints of the project and the unresponsiveness of the paper's authors, I opted instead to use a tree file provided by Ian Gilman in the Edwards Lab who had previously replicated Ocampo and Columbus's analysis. I obtained a full phylogeny for the Portullugo clade from the Edwards Lab (Figure 3) and subsetted this dataset to the Anacampserotaceae taxa. NEXUS files for each phylogeny can be found in the data folder of the repository: [Portulaca](https://github.com/noraheaphy/finalproject/blob/master/data/Ocampo_Portulaca.parts.treefile) and [Anacampserotaceae](https://github.com/noraheaphy/finalproject/blob/master/data/anacamps.treefile)
 
 **Note:** The climate niche comparison between Anacampserotaceae and Portulaca is primarily phylogenetic, while the comparison between Calandrinia and Portulaca is primarily geographic. Therefore, Calandrinia is not currently included in the following phyolgenetic analyses.
 
@@ -77,7 +77,7 @@ Analysis files:
 
 ### **4. Phylogenetic signal**
 
-Finally, I ran an analysis of phylogenetic signal for mean annual temperature and mean annual precipitation in Anacampserotaceae and Portulaca. Phylogenetic signal describes the tendency for related species to resemble each other more than species drawn at random from the same tree. The amount of "phylogenetic signal" in the trait data essentially tells us how much of this observed trait variation is simply due to time since divergence. The method below uses Blomberg's K to estimate phylogenetic signal. Values of K range from 0 to infinity, with an expected value of 1.0 under Brownian motion. Values of K < 1.0 describe data with less phylogenetic signal than expected, and values of K > 1.0 describe data with greater phylogenetic signal than expected due to chance.
+I ran an analysis of phylogenetic signal for mean annual temperature and mean annual precipitation in Anacampserotaceae and Portulaca. Phylogenetic signal describes the tendency for related species to resemble each other more than species drawn at random from the same tree. The amount of "phylogenetic signal" in the trait data essentially tells us how much of this observed trait variation is simply due to time since divergence. The method below uses Blomberg's K to estimate phylogenetic signal. Values of K range from 0 to infinity, with an expected value of 1.0 under Brownian motion. Values of K < 1.0 describe data with less phylogenetic signal than expected, and values of K > 1.0 describe data with greater phylogenetic signal than expected due to chance.
 
 Analysis files:
 
@@ -181,6 +181,9 @@ Once a joint tree of Anacampserotaceae and Portulaca has been successfully infer
 
 Untangling the complicated relationships between the global convergent evolution of the CAM and C4 pathways, the broad variation of facultative CAM phenotypes, and the present distribution of plant lineages in a rapidly changing global biosphere is a lengthy process, but one that has considerable implications for both our ability to provide sufficient food sources in the near and long term and our understanding of the fundamental mechanisms of evolution. The rapid niche expansion of Portulaca in comparison to Anacampserotaceae provides a counterexample to the theory of phylogenetic niche conservatism—the paradigm under which conserved traits limit the distribution of organisms to particular phylogenetically clustered climate spaces (Ogburn and Edwards, 2015). We know that rapid niche diversification and adaptation to novel climates is possible under certain circumstances, and identifying the particular physiological, genetic, and situational factors that enable one lineage to evolve its niche rapidly while another evolves within a narrow set of climatic conditions is of increasing importance as many organisms face massive environmental upheaval in the form of climate change and land use change. CAM and C4 photosynthesis represent one of the most important adaptations in the evolutionary history of land plants, and Portulaca still has much to teach us about evolutionary responses to ecological change and their subsequent ecological consequences.
 
+## Reflection
+
+The most challenging part of implementing these analyses was honing my analyses and determining what was reasonable to take on given the scope and timeline of the final project. I was lucky enough to have spent the better part of a year gathering and cleaning this dataset, so that part was relatively easy, but at the beginning of the semester, I had very little idea of what possible analytical routes were available to me. If I did these analyses again, I would start with a clearer picture of exactly what steps I would take towards my final results and how I would carry them out.
 
 ## References
 
