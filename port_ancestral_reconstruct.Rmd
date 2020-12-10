@@ -150,6 +150,25 @@ portulacaTree$edge.length = portulacaTree$edge.length/root_age
     
 # and now recalculate the root age to make sure things look good
 root_age = max(dist.nodes(portulacaTree)[, root_node])
+
+```
+
+```{r}
+
+# make tree ultrametric
+portulacaTree_ultra <- force.ultrametric(portulacaTree, method = "extend")
+
+# root ultrametric tree
+portulacaTree_ultra <- root(portulacaTree_ultra, node = getMRCA(portulacaTree_ultra, 
+                      c("Portulaca wightiana", "Portulaca amilis")), 
+                      edgelabel = TRUE)
+
+if(is.rooted(portulacaTree_ultra) == FALSE) {
+  stop("Error: tree is not rooted.")
+} else {
+  print("Tree is rooted, continue!")
+}
+
     
 ```
 
@@ -174,6 +193,15 @@ portulaca_ggtree_fig = ggtree(portulacaTree) +
   xlim(0, tree_width)
 
 portulaca_ggtree_fig
+
+# graph ultrametric tree
+
+portulaca_ultra_ggtree = ggtree(portulacaTree_ultra) + 
+  geom_tiplab(fontface = "italic", offset = label_offset) +
+  xlim(0, tree_width) +
+  geom_text2(aes(label = node), col = "red", nudge_x = label_offset/2, size = 2)
+
+portulaca_ultra_ggtree
 
 ```
 
