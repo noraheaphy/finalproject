@@ -56,12 +56,27 @@ I had hoped to obtain the full data matrix of genes and taxa assembled by Ocampo
 ![Portullugo Phylogeny from Moore et al. 2018](https://github.com/noraheaphy/finalproject/blob/master/figures/portullugo_phylo_Moore2018.png)
 *Figure 3. Consensus tree generated for Portullugo by Moore, et al. 2018. Relationships between all major clades are well-supported (>95% bootstrap) in both coalescent (ASTRAL) and concatenated (RAxML) species trees.*
 
+In R, I simplified these trees to only include taxa for which I had also collected climate data, resulting in a Portulaca phylogeny with 25 tips and an Anacampserotaceae phylogeny with 10 tips, containing representatives of all major lineages within the two groups (Figure 4).
+
+![Taxa included in analysis](https://github.com/noraheaphy/finalproject/blob/master/figures/phylogenies_selected_taxa.png)
+*Figure 4. Taxa drawn from Ocampo & Columbus 2012 (Portulaca) and Moore et al 2018 (Anacampserotaceae), for which I have both climate and phylogenetic data. The root of each tree is marked in red.*
+
 ### **3. Ancestral state reconstruction**
 I calculated species level means for each environmental variable for all taxa in the phylogeny for which I had climate data, and then, using the R packages phytools, phylotools, ape, and ggtree, I mapped these climate character states onto the tips of the phylogeny, inferred the character states of internal nodes, and reconstructed the ancestral states for the base of the Anacampserotaceae clade and the base of the Portulaca clade. I used, first, a Brownian motion model to perform a Restricted Maximum Likelihood (REML) reconstruction of continuous character state evolution across each tree, and then I repeated the process using Phylogenetic Independent Contrasts (PIC). I compared the confidence intervals of the values reconstructed for each node under each method and plotted them against each other in order to evaluate the robustness of the reconstruction to the type of method used. I then plotted the reconstructed states on the phylogeny to compare the climate niche of the ancestral node of Portulaca and of Anacampserotaceae and to examine whether their divergence in climate space occurred near the root or closer to the present time. 
 
+Analysis files:
+
+[Portulaca temperature ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/port_ancestral_reconstruct.Rmd)
+
+[Portulaca precipitation ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/port_map_reconstruct.Rmd)
+
+[Anacamposerotacaeae temperature ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/anacamps_ancestral_reconstruct.Rmd)
+
+[Anacampserotaceae precipitation ancestral reconstruction](https://github.com/noraheaphy/finalproject/blob/master/anacamps_map_reconstruct.Rmd)
+
 ## Results
 
-### **1. Climate niche analysis**
+### **1. Climate niche evolution: Portulaca and Anacampserotaceae**
 
 ![Anacampserotaceae-Portulaca Global Distribution](https://github.com/noraheaphy/finalproject/blob/master/figures/port_anacamps_map_11-29-2020.jpg)
 *Figure 4. Global distribution of curated localities for Portulaca (blue) and Anacampserotaceae (red). Note that Anacampserotaceae has a much more restricted geographic distribution than Portulaca.*
@@ -69,27 +84,26 @@ I calculated species level means for each environmental variable for all taxa in
 ![Anacampserotaceae-Portulaca Climate Space Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/ana_port_biplots.png)
 *Figure 5. Mean annual temperature (MAT) vs. mean annual precipitation (MAP) for Anacampserotaceae (a) and Portulaca (b) with respect to each other's climate niche space. Portulaca occupies almost the entire available niche space including Anacampserotaceae's niche space, but also extends beyond Anacampserotaceae into a warmer and wetter zone.* 
 
-![Calandrinia-Portulaca Australian Distribution](https://github.com/noraheaphy/finalproject/blob/master/figures/calandrinia_port_map_11-29-2020.jpg)
-*Figure 6. Australian distribution of curated localities for Portulaca (blue) and Calandrinia (red). While the distributions of the two groups overlap, Portulaca is mostly confined to the northern part of the continent, the warmer and wetter part of the total climate space of Australia.*
-
-![Calandrinia-Portulaca Climate Space Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/cal_port_aus_biplots.png)
-*Figure 7. Mean annual temperature (MAT) vs. mean annual precipitation (MAP) for Calandrinia (a) and Portulaca (b) with respect to each other's climate niche space in Australia. The curved shape of the niche space is representative of the shape of the total available climate space in Australia. Portulaca's niche space entirely overlaps with that of Calandrinia, but represents the warmer and wetter part of Calandrinia's total niche.*
-
 ![Anacampserotaceae-Portulaca With Buffer Map](https://github.com/noraheaphy/finalproject/blob/master/figures/port_ana_buffer_exluded.jpg)
 *Figure 8. Portulaca points included in buffered analysis (blue) represent only Portulaca localities within 500 km of an Anacampserotaceae locality. Portulaca localities located outside of Anacampserotaceae's typical range are depicted in yellow and excluded from this analysis. This is an attempt to determine whether the differences in climate niche space between Anacampserotaceae and Portulaca observed above are only due to Portulaca's wider geographic range.*
 
 ![Anacampserotaceae-Portulaca With Buffer Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/port_ana_buffer_biplots.png)
 *Figure 9. Mean annual temperature (MAT) vs. mean annual precipitation (MAP) for Anacampserotaceae (a) and Portulaca (b) with respect to each other's climate niche space. Even when restricting the analysis to Portulaca points that roughly co-occur with Anacampserotaceae points, Portulaca is clearly moving into a new climate niche characterized by higher temperatures and precipitation.*
 
+### **2. Climate niche evolution: Portulaca and Calandrinia**
+
+![Calandrinia-Portulaca Australian Distribution](https://github.com/noraheaphy/finalproject/blob/master/figures/calandrinia_port_map_11-29-2020.jpg)
+*Figure 6. Australian distribution of curated localities for Portulaca (blue) and Calandrinia (red). While the distributions of the two groups overlap, Portulaca is mostly confined to the northern part of the continent, the warmer and wetter part of the total climate space of Australia.*
+
+![Calandrinia-Portulaca Climate Space Biplots](https://github.com/noraheaphy/finalproject/blob/master/figures/cal_port_aus_biplots.png)
+*Figure 7. Mean annual temperature (MAT) vs. mean annual precipitation (MAP) for Calandrinia (a) and Portulaca (b) with respect to each other's climate niche space in Australia. The curved shape of the niche space is representative of the shape of the total available climate space in Australia. Portulaca's niche space entirely overlaps with that of Calandrinia, but represents the warmer and wetter part of Calandrinia's total niche.*
+
+### **3. Climate niche evolution: Outgroups**
+
 ![Outgroups Climate Niche](https://github.com/noraheaphy/finalproject/blob/master/figures/outgroups_climate.png)
 *Figure 10. Includes Cactaceae and Talinum as outgroups for Anacampserotaceae and Portulaca, forming the APCT clade. (a) Mean annual temperature. (b) Minimum temperature of the coldest month. (c) Mean annual precipitation. (d) Precipitation seasonality. Portulaca is moving into a warmer and wetter climate niche space than that which is occupied by any of its closest relatives.*
 
-### **2. Ancestral state reconstruction**
-
-### Taxa included in analysis
-
-![Taxa included in analysis](https://github.com/noraheaphy/finalproject/blob/master/figures/phylogenies_selected_taxa.png)
-*Figure 11. Taxa drawn from Ocampo & Columbus 2012 (Portulaca) and Moore et al 2018 (Anacampserotaceae), for which I have both climate and phylogenetic data. The root of each tree is marked in red.*
+### **4. Ancestral state reconstruction**
 
 ### MAT character state mapped to tips
 
