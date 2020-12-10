@@ -107,10 +107,17 @@ As with Portulaca and Anacampserotaceae, the Wilcoxon ranked sum test found that
 ![Australia null climate](https://github.com/noraheaphy/finalproject/blob/master/figures/australia_null_climate_biplot.jpeg)
 *Figure 11. Mean annual temperature (MAT) vs. mean annual precipitation (MAP) for 10,000 randomly sampled points located in Australia. The curved distribution matches the distribution of climate zones across the continent, with a large central desert and savannah surrounded by tropical forest on the northern coast and a more temperate, mediterranean region to the south.*
 
+ A few individual bioclimatic variables stand out as particularly notable in this comparison (Figure 12). Calandrinia’s climate niche for mean temperature of the wettest quarter is bimodal, with some localities experiencing low temperatures in the wettest quarter, some experiencing high temperatures, but no localities experiencing moderate temperatures. Portulaca solely occupies the portion of Calandrinia’s climate space experiencing very high mean temperatures during the wettest quarter, suggesting that Portulaca is specializing in the tropical, monsoonal climate space of its C3-CAM relative. Portulaca, on average, experiences greater precipitation seasonality than Calandrinia, and Portulaca clearly inhabits a warm season precipitation zone, while Calandrinia inhabits a cold season precipitation zone.
+
+ ![Monsoonal climate specialization](https://github.com/noraheaphy/finalproject/blob/master/figures/cal_port_monsoon_plots.png)
+ *Figure 12. Comparisons between Australian Calandrinia and Portulaca for a few notable bioclimatic variables. a) Portulaca solely occupies the more tropical monsoonal climate space of Calandrinia characterized by higher temperatures in the wettest quarter of the year. b) Portulaca occupies the subset of Calandrinia’s climate space that experiences greater precipitation seasonality. c) Portulaca lives under a warm season precipitation regime, while d) Calandrinia lives under a cold season precipitation regime.*
+
 ### **3. Climate niche evolution: Outgroups**
 
+To ensure a more accurate phylogenetic comparison, I incorporated global climate and locality data for two outgroups for Anacampserotaceae and Portulaca—Talinum and Cactaceae which together form the APCT clade in Portullugo. Talinum, which includes primarily facultative CAM species, and Cactaceae, which includes some facultative CAM species and a high concentration of constitutive “strong CAM” species, are more similar in their climate space to Anacampserotaceae than to Portulaca (Figure 13). Although the distinction is not quite so clear, Portulaca does seem to be moving into a warmer, wetter climate niche space characterized by more seasonal precipitation, in comparison to any other member of the APCT clade.
+
 ![Outgroups Climate Niche](https://github.com/noraheaphy/finalproject/blob/master/figures/outgroups_climate.png)
-*Figure 10. Includes Cactaceae and Talinum as outgroups for Anacampserotaceae and Portulaca, forming the APCT clade. (a) Mean annual temperature. (b) Minimum temperature of the coldest month. (c) Mean annual precipitation. (d) Precipitation seasonality. Portulaca is moving into a warmer and wetter climate niche space than that which is occupied by any of its closest relatives.*
+*Figure 13. When including Cactaceae and Talinum as outgroups for Anacampserotaceae and Portulaca, forming the APCT clade, these were the four bioclimatic variables that showed the most differentiation of Portulaca from the rest of the clade. Portulaca is moving into a warmer, wetter, and more seasonal climate niche space than that which is occupied by any of its closest relatives.*
 
 ### **4. Ancestral state reconstruction**
 
